@@ -1,5 +1,5 @@
 ---
-Order: 48
+Order: 
 TOCTitle: Strict null checking
 PageTitle: Strict null checking the Visual Studio Code codebase
 MetaDescription: Strict null checking the Visual Studio Code codebase
@@ -10,7 +10,7 @@ Author: Matt Bierner
 ---
 # Strict null checking Visual Studio Code
 
-May 23, 2019 by Matt Bierner, [@mattbierner](https://twitter.com/mattbierner)
+May 23, 2019 by Matt Bierner, [@mattbierner](https://hachyderm.io/@mattbierner)
 
 ## Safety permits speed
 
@@ -150,7 +150,7 @@ Fixing isolated lines of code or adding tests was a reactive solution that only 
 
 The problem was that we couldn't just enable a compiler flag and everything would be magically fixed. The core VS Code codebase has some 1800 TypeScript files, comprising more than half a million lines. Compiling it with `"strictNullChecks": true` produced some 4500 errors. Ugh!
 
-Furthermore, VS Code is made of a small core team and we like moving fast. Branching off the code to fix those 4500 strict null errors would have added a huge amount of engineering overhead. And where do you even start? Go through the list of errors top to bottom? In addition, changes in a branch would not help master, where the majority of the team would still be working.
+Furthermore, VS Code is made of a small core team and we like moving fast. Branching off the code to fix those 4500 strict null errors would have added a huge amount of engineering overhead. And where do you even start? Go through the list of errors top to bottom? In addition, changes in a branch would not help main, where the majority of the team would still be working.
 
 We wanted a plan that would incrementally bring the benefits of strict null checking to all engineers on the team, starting right away. That way, we could break the work into manageable changes with each small change making the code a little bit safer.
 
@@ -163,7 +163,7 @@ To do this, we created a new TypeScript project file called `tsconfig.strictNull
         "noEmit": true, // Don't output any javascript
         "strictNullChecks": true
     },
-    "files: [
+    "files": [
         // Slowly growing list of strict null check files goes here
     ]
 }
@@ -242,4 +242,4 @@ We took this approach with strict null checking VS Code, and will apply it to ot
 Happy Coding,
 
 Matt Bierner, VS Code Team Member
-[@mattbierner](https://twitter.com/mattbierner)
+[@mattbierner](https://hachyderm.io/@mattbierner)

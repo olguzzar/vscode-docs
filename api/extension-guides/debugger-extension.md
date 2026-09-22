@@ -1,7 +1,7 @@
 ---
 # DO NOT TOUCH — Managed by doc writer
 ContentId: 49EF49AD-8BE6-4D46-ADC8-D678BDC04E85
-DateApproved: 5/5/2021
+DateApproved: 4/15/2026
 
 # Summarize the whole topic in less than 300 characters for SEO purpose
 MetaDescription: Learn how to provide debugger extensions (plug-ins) for Visual Studio Code through a Debug Adapter.
@@ -51,7 +51,7 @@ So in its most minimal form, a debugger extension is just a declarative contribu
 A more realistic debugger extension contributes many or all of the following declarative items to VS Code:
 
 - List of languages supported by the debugger. VS Code enables the UI to set breakpoints for those languages.
-mention- JSON schema for the debug configuration attributes introduced by the debugger. VS Code uses this schema to verify the configuration in the launch.json editor and provides IntelliSense. Please note that the JSON schema constructs `$ref` and `definition` are not supported.
+- JSON schema for the debug configuration attributes introduced by the debugger. VS Code uses this schema to verify the configuration in the launch.json editor and provides IntelliSense. Please note that the JSON schema constructs `$ref` and `definition` are not supported.
 - Default debug configurations for the initial launch.json created by VS Code.
 - Debug configuration snippets that a user can add to a launch.json file.
 - Declaration of variables that can be used in debug configurations.
@@ -82,9 +82,9 @@ To try Mock Debug:
 
 - Create a new empty folder `mock test` and open it in VS Code.
 - Create a file `readme.md` and enter several lines of arbitrary text.
-- Switch to the Run view and press the gear icon.
-- VS Code will let you select an "environment" in order to create a default launch configuration. Pick "Mock Debug".
-- Press the green Start button and then Enter to confirm the suggested file `readme.md`.
+- Switch to the Run and Debug view (`kb(workbench.view.debug)`) and select the **create a launch.json file** link.
+- VS Code will let you select an "debugger" in order to create a default launch configuration. Pick "Mock Debug".
+- Press the green **Start** button and then `kbstyle(Enter)` to confirm the suggested file `readme.md`.
 
 A debug session starts and you can "step" through the readme file, set and hit breakpoints, and run into exceptions (if the word `exception` appears in a line).
 
@@ -165,7 +165,7 @@ about this can be found [here](https://microsoft.github.io/debug-adapter-protoco
 
 ## Anatomy of the package.json of a Debugger Extension
 
-Besides providing a debugger-specific implementation of the debug adapter a debugger extension needs a `package.json` that contributes to the various debug-related contributions points.
+Besides providing a debugger-specific implementation of the debug adapter a debugger extension needs a `package.json` that contributes to the various debug-related contribution points.
 
 So let's have a closer look at the `package.json` of Mock Debug.
 
@@ -258,7 +258,7 @@ First, we use the **breakpoints** contribution point to list the languages for w
 Next is the **debuggers** section. Here, one debugger is introduced under a debug **type** `mock`. The user can reference this type in launch configurations. The optional attribute **label** can be used to give the debug type a nice name when showing it in the UI.
 
 Since the debug extension uses a debug adapter, a relative path to its code is given as the **program** attribute.
-In order to make the extension self-contained the application must live inside the extension folder. By convention, we keep this applications inside a folder named `out` or `bin`, but you are free to use a different name.
+In order to make the extension self-contained the application must live inside the extension folder. By convention, we keep this application inside a folder named `out` or `bin`, but you are free to use a different name.
 
 Since VS Code runs on different platforms, we have to make sure that the DA program supports the different platforms as well. For this we have the following options:
 
@@ -298,7 +298,7 @@ Since VS Code runs on different platforms, we have to make sure that the DA prog
 
 **configurationAttributes** declares the schema for the `launch.json` attributes that are available for this debugger. This schema is used for validating the `launch.json` and supporting IntelliSense and hover help when editing the launch configuration.
 
-The **initialConfigurations** define the initial content of the default `launch.json` for this debugger. This information is used when a project does not have a `launch.json` and a user starts a debug session or clicks on the gear icon in the Run view. In this case VS Code lets the user pick a debug environment and then creates the corresponding `launch.json`:
+The **initialConfigurations** define the initial content of the default `launch.json` for this debugger. This information is used when a project does not have a `launch.json` and a user starts a debug session or selects the **create a launch.json file** link in the Run and Debug view. In this case VS Code lets the user pick a debug environment and then creates the corresponding `launch.json`:
 
 ![Debugger Quickpick](images/debugger-extension/debug-init-config.png)
 

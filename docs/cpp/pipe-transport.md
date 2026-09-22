@@ -1,11 +1,9 @@
 ---
-Order:
-Area: cpp
-TOCTitle: Pipe transport
 ContentId: 59BE5FF7-563F-4044-A562-294E75A75F96
-PageTitle: Pipe transport for remote communication in C++ projects
-DateApproved: 07/25/2019
+DateApproved: 7/25/2019
 MetaDescription: How to set up pipe transport for debugging C++ code in Visual Studio Code.
+Keywords:
+- C++
 ---
 # Pipe transport
 
@@ -28,7 +26,7 @@ Pipe transport allows communication through a pipe program to a remote shell. Fo
 },
 ```
 
-The `pipeArgs` can be any set of arguments necessary to set up and authenticate the pipe connection. In the example, a password is used but you can also use an ssh key.
+The `pipeArgs` can be any set of arguments necessary to set up and authenticate the pipe connection. In the example, a password is used but you can also use an SSH key.
 
 You may also need to add a `sourceFileMap` to map the path of where the code exists on the remote shell to where it is locally:
 

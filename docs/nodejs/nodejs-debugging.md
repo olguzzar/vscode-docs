@@ -1,12 +1,8 @@
 ---
-Order: 3
-Area: nodejs
-TOCTitle: Node.js Debugging
 ContentId: 3AC4DBB5-1469-47FD-9CC2-6C94684D4A9D
-PageTitle: Debug Node.js Apps using Visual Studio Code
-DateApproved: 5/5/2021
+DateApproved: 4/15/2026
 MetaDescription: The Visual Studio Code editor includes Node.js debugging support. Set breakpoints, step-in, inspect variables and more.
-MetaSocialImage: /assets/docs/editor/debugging/Debugging.png
+MetaSocialImage: ../editor/images/debugging/debugging-social.png
 ---
 # Node.js debugging in VS Code
 
@@ -14,9 +10,9 @@ The Visual Studio Code editor has built-in debugging support for the [Node.js](h
 
 There are a few ways you can debug your Node.js programs in VS Code:
 
-* Use [auto attach](#auto-attach) to debug processes you run in VS Code's integrated terminal,
-* Use the [JavaScript debug terminal](#javascript-debug-terminal), in a similar way, or
-* Use a [launch config](#launch-configuration) to start your program, or [attach to a process](#attaching-to-nodejs) launched outside of VS Code
+* Use [auto attach](#auto-attach) to debug processes you run in VS Code's integrated terminal.
+* Use the [JavaScript debug terminal](#javascript-debug-terminal), similar to using the integrated terminal.
+* Use a [launch config](#launch-configuration) to start your program, or [attach to a process](#attaching-to-nodejs) launched outside of VS Code.
 
 ## Auto Attach
 
@@ -24,11 +20,11 @@ If the **Auto Attach** feature is enabled, the Node debugger automatically attac
 
 There are three modes for auto attach, which you can select in the resulting Quick Pick and via the **debug.javascript.autoAttachFilter** setting:
 
-* `smart` (default) - If you execute a script outside of your `node_modules` folder or use a common 'runner' script like mocha or ts-node, the process will be debugged. You can configure the 'runner' script allow list using the **Auto Attach Smart Pattern** setting (`debug.javascript.autoAttachSmartPattern`).
+* `smart` - If you execute a script outside of your `node_modules` folder or use a common 'runner' script like mocha or ts-node, the process will be debugged. You can configure the 'runner' script allow list using the **Auto Attach Smart Pattern** setting (`debug.javascript.autoAttachSmartPattern`).
 * `always` - All Node.js processes launched in the Integrated Terminal will be debugged.
 * `onlyWithFlag` - Only processes launched with the `--inspect` or `--inspect-brk` flag will be debugged.
 
-After enabling **Auto Attach**, you'll need to restart your terminal. This can be done by clicking the ⚠ icon in the top right of the terminal, or just creating a new one. Then, the debugger should attach to your program within a second:
+After enabling **Auto Attach**, you'll need to restart your terminal by clicking the ⚠ icon in the top right of the terminal, or just creating a new one. Then, the debugger should attach to your program within a second:
 
 ![Auto Attach](images/nodejs-debugging/auto-attach.gif)
 
@@ -50,7 +46,7 @@ You can apply [other properties normally found in launch.json](#launch-configura
 
 **Auto Attach Smart Patterns**
 
-In `smart` Auto Attach mode, VS Code will try to attach to your code, and not attach to build tools you aren't interested in debugging. It does this by matching the main script against a list of [glob patterns](/docs/editor/codebasics.md#advanced-search-options). The glob patterns are configurable in the **debug.javascript.autoAttachSmartPattern** setting, which defaults to:
+In `smart` Auto Attach mode, VS Code will try to attach to your code, and not attach to build tools you aren't interested in debugging. It does this by matching the main script against a list of [glob patterns](/docs/editor/glob-patterns.md). The glob patterns are configurable in the **debug.javascript.autoAttachSmartPattern** setting, which defaults to:
 
 ```js
 [
@@ -59,7 +55,7 @@ In `smart` Auto Attach mode, VS Code will try to attach to your code, and not at
 ]
 ```
 
-`$KNOWN_TOOLS$` is replaced list a list of common 'code runners' such as `ts-node`, `mocha`, `ava`, and so on. You can modify this list if these settings don't work. For example, to exclude `mocha` and include `my-cool-test-runner`, you could add two lines:
+`$KNOWN_TOOLS$` is replaced with a list of common 'code runners' such as `ts-node`, `mocha`, `ava`, and so on. You can modify this list if these settings don't work. For example, to exclude `mocha` and include `my-cool-test-runner`, you could add two lines:
 
 ```js
 [
@@ -72,7 +68,7 @@ In `smart` Auto Attach mode, VS Code will try to attach to your code, and not at
 
 ## JavaScript Debug Terminal
 
-In a similar way to [auto attach](#auto-attach), the JavaScript Debug Terminal will automatically debug any Node.js process you run in it. You can create a Debug Terminal by running the use the **Debug: Create JavaScript Debug Terminal** command from the Command Palette (`kbs(workbench.action.showCommands)`), or by selecting the **Create JavaScript Debug Terminal** from the terminal switcher dropdown.
+In a similar way to [auto attach](#auto-attach), the JavaScript Debug Terminal will automatically debug any Node.js process you run in it. You can create a Debug Terminal by running the **Debug: Create JavaScript Debug Terminal** command from the Command Palette (`kbs(workbench.action.showCommands)`), or by selecting the **Create JavaScript Debug Terminal** from the terminal switcher dropdown.
 
 ![Create Debug Terminal](images/nodejs-debugging/create-debug-terminal.png)
 
@@ -96,26 +92,26 @@ Launch configs are the traditional way to set up debugging in VS Code, and provi
 
 In this section we'll go into more detail about configurations and features for more advanced debugging scenarios. You'll find instruction for debugging with [source maps](/docs/nodejs/nodejs-debugging.md#source-maps), [stepping over external code](/docs/nodejs/nodejs-debugging.md#skipping-uninteresting-code), doing [remote debugging](/docs/nodejs/nodejs-debugging.md#remote-debugging), and much more.
 
-If you'd like to watch an introductory video, see [Getting started with Node.js debugging](https://www.youtube.com/watch?v=2oFKNL7vYV8).
+If you'd like to watch an introductory video, see [Getting started with debugging in VS Code](https://www.youtube.com/watch?v=3HiLLByBWkg).
 
->**Note**: If you are just getting started with VS Code, you can learn about general debugging features and creating `launch.json` configuration files in the [Debugging](/docs/editor/debugging.md) topic.
+>**Note**: If you are just getting started with VS Code, you can learn about general debugging features and creating `launch.json` configuration files in the [Debugging](/docs/debugtest/debugging.md) topic.
 
 ## Launch configuration attributes
 
-Debugging configurations are stored in a `launch.json` file located in your workspace's `.vscode` folder. An introduction into the creation and use of debugging configuration files is in the general [Debugging](/docs/editor/debugging.md#launch-configurations) article.
+Debugging configurations are stored in a `launch.json` file located in your workspace's `.vscode` folder. An introduction into the creation and use of debugging configuration files is in the general [Debugging](/docs/debugtest/debugging-configuration.md#launch-configurations) article.
 
 Below is a reference of common `launch.json` attributes specific to the Node.js debugger. You can view the complete set of options in the [vscode-js-debug options](https://github.com/microsoft/vscode-js-debug/blob/main/OPTIONS.md) documentation.
 
 The following attributes are supported in launch configurations of type `launch` and `attach`:
 
-* `outFiles` - array of glob patterns for locating generated JavaScript files. See section [Source maps](/docs/nodejs/nodejs-debugging.md#source-maps).
-* `resolveSourceMapLocations` - an array of glob patterns for locations where source maps should be parsed. See section [Source maps](/docs/nodejs/nodejs-debugging.md#source-maps).
+* `outFiles` - array of [glob patterns](/docs/editor/glob-patterns.md) for locating generated JavaScript files. See section [Source maps](/docs/nodejs/nodejs-debugging.md#source-maps).
+* `resolveSourceMapLocations` - an array of [glob patterns](/docs/editor/glob-patterns.md) for locations where source maps should be parsed. See section [Source maps](/docs/nodejs/nodejs-debugging.md#source-maps).
 * `timeout` - when restarting a session, give up after this number of milliseconds. See section [Attaching to Node.js](/docs/nodejs/nodejs-debugging.md#attaching-to-nodejs).
 * `stopOnEntry` - break immediately when the program launches.
 * `localRoot` - VS Code's root directory. See section [Remote debugging](/docs/nodejs/nodejs-debugging.md#remote-debugging) below.
 * `remoteRoot` - Node's root directory. See section [Remote debugging](/docs/nodejs/nodejs-debugging.md#remote-debugging) below.
 * `smartStep`- try to automatically step over code that doesn't map to source files. See section [Smart stepping](/docs/nodejs/nodejs-debugging.md#smart-stepping).
-* `skipFiles` - automatically skip files covered by these glob patterns. See section [Skipping uninteresting code](/docs/nodejs/nodejs-debugging.md#skipping-uninteresting-code).
+* `skipFiles` - automatically skip files covered by these [glob patterns](/docs/editor/glob-patterns.md). See section [Skipping uninteresting code](/docs/nodejs/nodejs-debugging.md#skipping-uninteresting-code).
 * `trace` - enable diagnostic output.
 
 These attributes are only available for launch configurations of request type `launch`:
@@ -127,14 +123,13 @@ These attributes are only available for launch configurations of request type `l
 * `runtimeArgs` - optional arguments passed to the runtime executable.
 * `runtimeVersion` - if "[nvm](https://github.com/creationix/nvm)" (or "[nvm-windows](https://github.com/coreybutler/nvm-windows)") or "[nvs](https://github.com/jasongin/nvs)" is used for managing Node.js versions, this attribute can be used to select a specific version of Node.js. See section [Multi version support](/docs/nodejs/nodejs-debugging.md#multi-version-support) below.
 * `env` - optional environment variables. This attribute expects environment variables as a list of string typed key/value pairs.
-* `envFile` - optional path to a file containing environment variable definitions. See section [Load environment variables from external file](/docs/nodejs/nodejs-debugging.md#load-environment-variables-from-external-file-node) below.
+* `envFile` - optional path to a file containing environment variable definitions. See section [Load environment variables from external file](/docs/nodejs/nodejs-debugging.md#load-environment-variables-from-external-file) below.
 * `console` - the console to launch the program (`internalConsole`, `integratedTerminal`, `externalTerminal`). See section [Node Console](/docs/nodejs/nodejs-debugging.md#node-console) below.
 * `outputCapture` - if set to `std`, output from the process stdout/stderr will be shown in the Debug Console, instead of listening to output over the debug port. This is useful for programs or log libraries that write directly to the stdout/stderr streams instead of using `console.*` APIs.
 
 This attribute is only available for launch configurations of request type `attach`:
 
 * `restart` - restart the connection on termination. See section [Restarting debug session automatically](/docs/nodejs/nodejs-debugging.md#restarting-debug-sessions-automatically-when-source-is-edited).
-* `protocol` - debug protocol to use. See section [Supported Node-like runtimes](/docs/nodejs/nodejs-debugging.md#supported-nodelike-runtimes) above.
 * `port` - debug port to use. See sections [Attaching to Node.js](/docs/nodejs/nodejs-debugging.md#attaching-to-nodejs) and [Remote debugging](/docs/nodejs/nodejs-debugging.md#remote-debugging).
 * `address` - TCP/IP address of the debug port. See sections [Attaching to Node.js](/docs/nodejs/nodejs-debugging.md#attaching-to-nodejs) and [Remote debugging](/docs/nodejs/nodejs-debugging.md#remote-debugging).
 * `processId` - the debugger tries to attach to this process after having sent a USR1 signal. With this setting, the debugger can attach to an already running process that was not started in debug mode. When using the `processId` attribute, the debug port is determined automatically based on the Node.js version (and the used protocol) and cannot be configured explicitly. So don't specify a `port` attribute.
@@ -150,10 +145,10 @@ You can also bring up the snippets with the **Add Configuration...** button in t
 
 ![Add Configuration button](images/nodejs-debugging/add-configuration-button.png)
 
-These are the available snippets:
+The following snippets are available:
 
 * **Launch Program**: Launch a Node.js program in debug mode.
-* **Launch via npm**: Launch a Node.js program through an npm 'debug' script. If you have defined an npm debug script in your package.json, you can use it directly from your launch configuration. Make sure that the debug port used in the npm script, corresponds to the port specified in the snippet.
+* **Launch via npm**: Launch a Node.js program through an npm 'debug' script. You can use an npm debug script from your launch configuration if it has been defined in your package.json. The debug port used in the npm script must correspond to the port specified in the snippet.
 * **Attach**: Attach to the debug port of a locally running Node.js program. Make sure that the Node.js program to debug has been started in debug mode, and the debug port used is the same as the one specified in the snippet.
 * **Attach to Remote Program**: Attach to the debug port of a Node.js program running on the host specified by the `address` attribute. Make sure that the Node.js program to debug has been started in debug mode, and the debug port used is the same as the one specified in the snippet. To help VS Code map source files between your workspace and the filesystem of the remote host, make sure to specify correct paths for the `localRoot`and `remoteRoot` attributes.
 * **Attach by Process ID**: Open the process picker to select a node or gulp process for debugging. With this launch configuration, you can even attach to a node or gulp process that was not started in debug mode.
@@ -167,13 +162,13 @@ These are the available snippets:
 
 By default, Node.js debug sessions launch the target in the internal VS Code Debug Console. Since the Debug Console does not support programs that need to read input from the console, you can enable either an external terminal or use the VS Code Integrated Terminal by setting the `console` attribute in your launch configuration to `externalTerminal` or `integratedTerminal` respectively. The default is `internalConsole`.
 
-If an external terminal is used, you can configure which terminal program to use via the `terminal.external.windowsExec`, `terminal.external.osxExec`, and `terminal.external.linuxExec` settings.
+In an external terminal, you can configure which terminal program to use via the `terminal.external.windowsExec`, `terminal.external.osxExec`, and `terminal.external.linuxExec` settings.
 
 ### Launch configuration support for 'npm' and other tools
 
 Instead of launching the Node.js program directly with node, you can use 'npm' scripts or other task runner tools directly from a launch configuration:
 
-* Any program available on the PATH (for example 'npm', 'mocha', 'gulp', etc.) can be used for the `runtimeExecutable` attribute and arguments can be passed via `runtimeArgs`.
+* You can use any program available on the PATH (for example 'npm', 'mocha', 'gulp', etc.) for the `runtimeExecutable` attribute and arguments can be passed via `runtimeArgs`.
 * You do not have to set the `program` attribute if your npm script or other tool implicitly specifies the program to launch.
 
 Let's look at an 'npm' example. If your `package.json` has a 'debug' script, for example:
@@ -271,7 +266,7 @@ or if the program shouldn't start running, but must wait for the debugger to att
 node --inspect-brk program.js
 ```
 
-Now you have a couple options for attaching the debugger to your program:
+Options to attach the debugger to your program:
 
 * Open a "process picker" that lists all potential candidate processes and let you pick one, or
 * Create an "attach" configuration that explicitly specifies all configuration options and then press **F5**.
@@ -305,7 +300,7 @@ The simplest "attach" configuration looks like this:
 
 The port `9229` is the default debug port of the `--inspect` and `--inspect-brk` options. To use a different port (for example `12345`), add it to the options like this: `--inspect=12345` and `--inspect-brk=12345` and change the `port` attribute in the launch configuration to match.
 
-If you want to attach to a Node.js process that hasn't been started in debug mode, you can do this by specifying the process ID of the Node.js process as a string:
+To attach to a Node.js process that hasn't been started in debug mode, you can do this by specifying the process ID of the Node.js process as a string:
 
 ```json
 {
@@ -316,7 +311,7 @@ If you want to attach to a Node.js process that hasn't been started in debug mod
 }
 ```
 
-Since it is a bit laborious to repeatedly find the process ID and enter it in the launch configuration, Node debug supports a command variable `PickProcess` that will open the process picker (from above).
+To avoid repeatedly entering a new process ID in the launch configuration, Node debug supports a command variable `PickProcess` that will open the process picker (from above).
 
 Using the `PickProcess` variable the launch configuration looks like this:
 
@@ -339,17 +334,17 @@ If the debug session is in "launch" mode, pressing **Stop** does the following:
 
 1. When pressing **Stop** for the first time, the debuggee is requested to shut down gracefully by sending a `SIGINT` signal. The debuggee is free to intercept this signal and clean up anything as necessary and then shut down. If there are no breakpoints (or problems) in that shutdown code, the debuggee and the debug session will terminate.
 
-2. However if the debugger hits a breakpoint in the shutdown code or if the debuggee does not terminate properly by itself, then the debug session will not end. In this case, pressing **Stop** again will force terminate the debuggee and its child processes (`SIGKILL`).
+2. However, if the debugger hits a breakpoint in the shutdown code or if the debuggee does not terminate properly by itself, then the debug session will not end. In this case, pressing **Stop** again will force terminate the debuggee and its child processes (`SIGKILL`).
 
-So if you see that a debug session doesn't end when you press the red **Stop** button, then press the button again to force a shutdown of the debuggee.
+If you see that a debug session doesn't end when you press the red **Stop** button, then press the button again to force a shutdown of the debuggee.
 
-Note that on the Windows operating system, pressing **Stop** always forcibly kills the debuggee and its child processes.
+On Windows, pressing **Stop** forcibly kills the debuggee and its child processes.
 
 ## Source maps
 
 The JavaScript debugger of VS Code supports source maps that help debugging of transpiled languages, for example, TypeScript or minified/uglified JavaScript. With source maps, it's possible to single step through or set breakpoints in the original source. If no source map exists for the original source, or if the source map is broken and cannot successfully map between the source and the generated JavaScript, then breakpoints show up as unverified (gray hollow circles).
 
-The source map feature is controlled by the `sourceMaps` attribute that defaults to `true`. This means that the debugger always tries to use source maps (if it can find any) and as a consequence, you can even specify a source file (for example, app.ts) with the `program` attribute. If you need to disable source maps for some reason, you can set the `sourceMaps` attribute to `false`.
+The `sourceMaps` attribute that defaults to `true` controls the source map feature. The debugger always tries to use source maps (if it can find any) and as a consequence, you can even specify a source file (for example, app.ts) with the `program` attribute. If you need to disable source maps for some reason, you can set the `sourceMaps` attribute to `false`.
 
 ### Tool Configuration
 
@@ -431,12 +426,29 @@ Finally, the debug adapter searches for the full path of `app.ts` in this result
 
 Here are some things to try when your breakpoints turn gray:
 
-* While debugging, run the **Debug: Create Diagnostic Information for Current Session** command. This command will bring up a tool that can provide hints to help you resolve any issues from the Command Palette (`kb(workbench.action.showCommands)`).
+* While debugging, run the **Debug: Diagnose Breakpoint Problems** command. This command will bring up a tool that can provide hints to help you resolve any issues from the Command Palette (`kb(workbench.action.showCommands)`).
 * Did you build with source maps enabled? Make sure there are `.js.map` files, or inlined source maps in your `.js` files.
 * Are the `sourceRoot` and `sources` properties in your source map correct? Can they be combined to get the correct path to the `.ts` file?
 * Have you opened the folder in VS Code with the incorrect case? It's possible to open folder `foo/` from the command line like `code FOO` in which case source maps may not be resolved correctly.
 * Try searching for help with your particular setup on Stack Overflow or by filing an issue on GitHub.
 * Try adding a `debugger` statement. If it breaks into the `.ts` file there, but breakpoints at that spot don't bind, that is useful information to include with a GitHub issue.
+
+### Overriding source map paths
+
+The debugger uses `sourceMapPathOverrides` to implement custom sourcemap-to-disk path mapping. Good defaults are in place for most tools, but in advanced cases you may need to customize it. The default paths overrides is an object map that looks like this:
+
+```js
+{
+  'webpack:///./~/*': "${workspaceFolder}/node_modules/*",
+  'webpack:////*': '/*',
+  'webpack://@?:*/?:*/*': "${workspaceFolder}/*",
+  // and some more patterns...
+}
+```
+
+This maps paths or URLs in the source map from the left to the right. The pattern `?:*` is a non-greedy, non-capturing match, and `*` is a greedy capturing match. The debugger then replaces the corresponding `*` in the right-hand pattern with the fragment captured from the source map path. For example, the last pattern in the above example would map `webpack://@my/package/foo/bar` to `${workspaceFolder}/foo/bar`.
+
+Note that for browser debugging, the `webRoot` is used in place of the `workspaceFolder` in the default `sourceMapPathOverrides`.
 
 ## Remote debugging
 
@@ -472,7 +484,7 @@ By default, VS Code will stream the debugged source from the remote Node.js fold
 
 ## Access Loaded Scripts
 
-If you need to set a breakpoint in a script that is not part of your workspace and therefore cannot be easily located and opened through normal VS Code file browsing, you can access the loaded scripts via the **LOADED SCRIPTS** view in the Run view:
+If you need to set a breakpoint in a script that is not part of your workspace and therefore cannot be easily located and opened through normal VS Code file browsing, you can access the loaded scripts via the **LOADED SCRIPTS** view in the **Run and Debug** view:
 
 ![Loaded Scripts Explorer](images/nodejs-debugging/loaded-scripts-explorer.gif)
 
@@ -502,7 +514,7 @@ you can attach the VS Code debugger to it with the following launch configuratio
 }
 ```
 
-Alternatively you can start your program `server.js` via **nodemon** directly with a launch config and attach the VS Code debugger:
+Alternatively, you can start your program `server.js` via **nodemon** directly with a launch config and attach the VS Code debugger:
 
 ```json
 {
@@ -524,9 +536,7 @@ Alternatively you can start your program `server.js` via **nodemon** directly wi
 
 The Node debugger supports restarting execution at a stack frame. This can be useful in situations where you have found a problem in your source code and you want to rerun a small portion of the code with modified input values. Stopping and then restarting the full debug session can be time-consuming. The **Restart Frame** action allows you to reenter the current function after you have changed variables with the **Set Value** action:
 
-<p>
-  <img alt="restart frame" src="https://az754404.vo.msecnd.net/public/restartFrame.gif" />
-</p>
+![Restart frame](images/nodejs-debugging/restartFrame.gif)
 
 **Restart Frame** won't roll back mutation to state outside of the function, so it may not always work as expected.
 
@@ -540,7 +550,7 @@ Conditional breakpoints are breakpoints that only pause when an expression retur
 
 ### Logpoints
 
-Something you want to just log a message or value when code hits a certain location, rather than pausing. You can do this with logpoints. Logpoints don't pause, but rather log a message to the Debug Console when hit. In the JavaScript debugger, you can use curly braces to interpolate expressions into the message, like `current value is: {myVariable.property}`.
+Sometimes you want to just log a message or value when code hits a certain location, rather than pausing. You can do this with logpoints. Logpoints don't pause, but rather log a message to the Debug Console when hit. In the JavaScript debugger, you can use curly braces to interpolate expressions into the message, like `current value is: {myVariable.property}`.
 
 You can create one by right-clicking in the gutter beside a line number and selecting "Logpoint". For example, this might log something like `location is /usr/local`:
 
@@ -561,6 +571,14 @@ Some examples:
 * `10` same as `>=10`
 * `%2` break on every other hit
 
+### Triggered breakpoints
+
+A triggered breakpoint is a breakpoint that is automatically enabled once another breakpoint is hit. They can be very useful when diagnosing failure cases in code that happen only after a certain precondition.
+
+Triggered breakpoints can be set by right-clicking on the glyph margin, selecting **Add Triggered Breakpoint**, and then choosing which other breakpoint enables the breakpoint.
+
+<video src="../editor/images/debugging/debug-triggered-breakpoint.mp4" autoplay loop controls muted></video>
+
 ### Breakpoint validation
 
 For performance reasons, Node.js parses the functions inside JavaScript files lazily on first access. As a consequence, breakpoints don't work in source code areas that haven't been seen (parsed) by Node.js.
@@ -579,7 +597,7 @@ This breakpoint validation occurs when a session starts and the breakpoints are 
 
 ## Skipping uninteresting code
 
-VS Code Node.js debugging has a feature to avoid source code that you don't want to step through (also known as 'Just My Code'). This feature can be enabled with the `skipFiles` attribute in your launch configuration. `skipFiles` is an array of glob patterns for script paths to skip.
+VS Code Node.js debugging has a feature to avoid source code that you don't want to step through (also known as 'Just My Code'). This feature can be enabled with the `skipFiles` attribute in your launch configuration. `skipFiles` is an array of [glob patterns](/docs/editor/glob-patterns.md) for script paths to skip.
 
 For example, using:
 
@@ -590,9 +608,9 @@ For example, using:
   ]
 ```
 
-all code in the `node_modules` and `lib` folders in your project will be skipped.
+all code in the `node_modules` and `lib` folders in your project will be skipped. The `skipFiles` also apply to the location shown when calling `console.log` and similar methods: the first non-skipped location in the stack will be shown beside the output in the Debug Console.
 
-Built-in **core modules** of Node.js can be referred to by the 'magic name' `<node_internals>` in a glob pattern. The following example skips all internal modules:
+Built-in **core modules** of Node.js can be referred to by the 'magic name' `<node_internals>` in a [glob patterns](/docs/editor/glob-patterns.md). The following example skips all internal modules:
 
 ```json
   "skipFiles": [
@@ -615,7 +633,7 @@ Hovering over the dimmed entries explains why the stack frame is dimmed.
 
 A context menu item on the call stack, **Toggle skipping this file** enables you to easily skip a file at runtime without adding it to your launch config. This option only persists for the current debugging session. You can also use it to stop skipping a file that is skipped by the `skipFiles` option in your launch config.
 
->**Note:** The `legacy` protocol debugger supports negative glob patterns, but they must **follow** a positive pattern: positive patterns add to the set of skipped files, while negative patterns subtract from that set.
+>**Note:** The `legacy` protocol debugger supports negative [glob patterns](/docs/editor/glob-patterns.md), but they must **follow** a positive pattern: positive patterns add to the set of skipped files, while negative patterns subtract from that set.
 
 In the following (`legacy` protocol-only) example all but a 'math' module is skipped:
 
@@ -628,9 +646,34 @@ In the following (`legacy` protocol-only) example all but a 'math' module is ski
 
 >**Note:** The `legacy` protocol debugger has to emulate the `skipFiles` feature because the **V8 Debugger Protocol** does not support it natively. This might result in slow stepping performance.
 
+## Debugging WebAssembly
+
+The JavaScript debugger can debug code compiled into WebAssembly if it includes [DWARF](https://dwarfstd.org) debug information. Many toolchains support emitting this information:
+
+* [C/C++ with Emscripten](https://emscripten.org/): Compile with the `-g` flag to emit debug information.
+* [Zig](https://ziglang.org/): DWARF information is automatically emittted in the "Debug" build mode.
+* [Rust](https://www.rust-lang.org/): Rust emits DWARF debug information. However, wasm-pack [does not yet](https://github.com/rustwasm/wasm-pack/issues/1351) retain it during the build. So, instead of running `wasm-pack build`, users of the common wasm-bindgen/wasm-pack libraries should build manually build using two commands:
+  1. `cargo install wasm-bindgen-cli` once to install the necessary command-line tool.
+  1. `cargo build --target wasm32-unknown-unknown` to build your library.
+  1. `wasm-bindgen --keep-debug --out-dir pkg ./target/wasm32-unknown-unknown/debug/<library-name>.wasm <extra-arguments>` to generate the WebAssembly bindings, replacing `<library-name>` with the name from your Cargo.toml and configuring `<extra-arguments>` as necessary.
+
+After you have your code built, you'll want to install the [WebAssembly DWARF Debugging](https://marketplace.visualstudio.com/items?itemName=ms-vscode.wasm-dwarf-debugging) extension. This is shipped as a separate extension in order to keep the VS Code core 'streamlined.' Once installed, restart any active debugging sessions, and native code should then be mapped in the debugger! You should see your source code appear in the **Loaded Sources** view, and breakpoints should work.
+
+In the image below, the debugger is stopped on a breakpoint in C++ source code that creates a Mandelbrot fractal. The call stack is visible, with frames from the JavaScript code, to WebAssembly, to the mapped C++ code. You can also see the variables in the C++ code, and an edit to the memory associated with the int32 `height` variable.
+
+![Debugger stopped on a breakpoint in C++ source code](images/nodejs-debugging/wasm-dwarf.png)
+
+While close to parity, debugging WebAssembly is a little different than ordinary JavaScript:
+
+* Variables in the **Variables** view cannot be edited directly. However, you can select the **View Binary Data** action beside the variable to edit their associated memory.
+* Basic expression evaluation in the **Debug Console** and **Watch** views is provided by [lldb-eval](https://github.com/google/lldb-eval). This is different than ordinary JavaScript expressions.
+* Locations not mapped to source code will be shown in disassembled WebAssembly Text Format. For WebAssembly, the command **Disable Source Map Stepping** will cause the debugger to step only in disassembled code.
+
+VS Code's WebAssembly debugging is built upon the [C/C++ Debugging Extension](https://github.com/ChromeDevTools/devtools-frontend/tree/main/extensions/cxx_debugging) from the Chromium authors.
+
 ## Supported Node-like runtimes
 
-The current VS Code JavaScript debugger supports Node version at or above 8.x, recent Chrome versions, and recent Edge versions (via the `pwa-msedge` launch type).
+The current VS Code JavaScript debugger supports Node version at or above 8.x, recent Chrome versions, and recent Edge versions (via the `msedge` launch type).
 
 ## Next steps
 
@@ -638,14 +681,13 @@ In case you didn't already read the Node.js section, take a look at:
 
 * [Node.js](/docs/nodejs/nodejs-tutorial.md) - End to end Node scenario with a sample application
 
-To see tutorials on the basics of Node.js debugging, check out these videos:
+To see a tutorial on the basics of debugging in VS Code, check out this video:
 
-* [Intro Video - Debugging](/docs/introvideos/debugging.md) - Introductory video showcasing the basics of debugging.
-* [Getting started with Node.js debugging](https://www.youtube.com/watch?v=2oFKNL7vYV8) - Learn how to attach to a running Node.js process.
+* [Getting started with debugging in VS Code](https://www.youtube.com/watch?v=3HiLLByBWkg).
 
 To learn about VS Code's task running support, go to:
 
-* [Tasks](/docs/editor/tasks.md) - Running tasks with Gulp, Grunt, and Jake.  Showing Errors and Warnings
+* [Tasks](/docs/debugtest/tasks.md) - Running tasks with Gulp, Grunt, and Jake.  Showing Errors and Warnings
 
 To write your own debugger extension, visit:
 
@@ -673,3 +715,11 @@ If you use esm or pass `--experimental-modules` to Node.js in order to use ECMAS
 
 * `"runtimeArgs": ["--experimental-modules"]` - Use the [experimental ECMAScript modules support](https://nodejs.org/api/esm.html) in Node v8.5.0+
 * `"runtimeArgs": ["-r", "esm"]` - Use the [esm ES module loader](https://github.com/standard-things/esm) (`["-r esm"]` without a comma won't work)
+
+### How can I set NODE_OPTIONS?
+
+The debugger uses the special `NODE_OPTIONS` environment variable to set up debugging with your application, and overwriting it will prevent debugging from working correctly. Instead of overwriting it, you should append to it instead. For example, a `.bashrc` file might have something like this:
+
+```bash
+export NODE_OPTIONS="$NODE_OPTIONS --some-other-option=here"
+```

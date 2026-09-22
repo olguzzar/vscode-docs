@@ -1,7 +1,7 @@
 ---
 # DO NOT TOUCH — Managed by doc writer
 ContentId: adddd33e-2de6-4146-853b-34d0d7e6c1f1
-DateApproved: 5/5/2021
+DateApproved: 4/15/2026
 
 # Summarize the whole topic in less than 300 characters for SEO purpose
 MetaDescription: Use the Webview API to create fully customizable views within Visual Studio Code.
@@ -23,9 +23,9 @@ This page focuses on the basic webview panel API, although almost everything cov
 
 ## Links
 
-- [Webview Sample](https://github.com/microsoft/vscode-extension-samples/blob/main/webview-sample/README.md)
-- [Custom Editors Documentation](/api/extension-guides/custom-editors)
-- [Webview View Sample](https://github.com/microsoft/vscode-extension-samples/tree/main/webview-view-sample)
+- [Webview sample](https://github.com/microsoft/vscode-extension-samples/blob/main/webview-sample/README.md)
+- [Custom Editors documentation](/api/extension-guides/custom-editors)
+- [Webview View sample](https://github.com/microsoft/vscode-extension-samples/tree/main/webview-view-sample)
 
 ### VS Code API Usage
 
@@ -59,10 +59,10 @@ Here's the `package.json` for the first version of the **Cat Coding** extension.
   "version": "0.0.1",
   "publisher": "bierner",
   "engines": {
-    "vscode": "^1.23.0"
+    "vscode": "^1.74.0"
   },
-  "activationEvents": ["onCommand:catCoding.start"],
-  "main": "./out/src/extension",
+  "activationEvents": [],
+  "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
@@ -86,6 +86,8 @@ Here's the `package.json` for the first version of the **Cat Coding** extension.
   }
 }
 ```
+
+> **Note**: If your extension targets a VS Code version prior to 1.74, you must explicitly list `onCommand:catCoding.start` in `activationEvents`.
 
 Now let's implement the `catCoding.start` command. In our extension's main file, we register the `catCoding.start` command and use it to show a basic webview:
 
@@ -277,7 +279,7 @@ export function activate(context: vscode.ExtensionContext) {
         {}
       );
 
-      panel.webview.html = getWebviewContent(cats['Coding Cat']);
+      panel.webview.html = getWebviewContent('Coding Cat');
 
       // After 5sec, programmatically close the webview panel
       const timeout = setTimeout(() => panel.dispose(), 5000);
@@ -311,7 +313,7 @@ Let's update our extension to only allow a single webview to exist at a time. If
 
 ```ts
 export function activate(context: vscode.ExtensionContext) {
-  // Track currently webview panel
+  // Track the current panel with a webview
   let currentPanel: vscode.WebviewPanel | undefined = undefined;
 
   context.subscriptions.push(
@@ -328,7 +330,7 @@ export function activate(context: vscode.ExtensionContext) {
         currentPanel = vscode.window.createWebviewPanel(
           'catCoding',
           'Cat Coding',
-          columnToShowIn,
+          columnToShowIn || vscode.ViewColumn.One,
           {}
         );
         currentPanel.webview.html = getWebviewContent('Coding Cat');
@@ -432,11 +434,10 @@ In addition, the **Developer: Reload Webview** command reloads all active webvie
 
 Webviews run in isolated contexts that cannot directly access local resources. This is done for security reasons. This means that in order to load images, stylesheets, and other resources from your extension, or to load any content from the user's current workspace, you must use the `Webview.asWebviewUri` function to convert a local `file:` URI into a special URI that VS Code can use to load a subset of local resources.
 
-Imagine that we want to start bundling the cat gifs into our extension rather pulling them from Giphy. To do this, we first create a URI to the file on disk and then pass these URIs through the `asWebviewUri` function:
+Imagine that we want to start bundling the cat gifs into our extension rather than pulling them from Giphy. To do this, we first create a URI to the file on disk and then pass these URIs through the `asWebviewUri` function:
 
 ```ts
 import * as vscode from 'vscode';
-import * as path from 'path';
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
@@ -449,9 +450,7 @@ export function activate(context: vscode.ExtensionContext) {
       );
 
       // Get path to resource on disk
-      const onDiskPath = vscode.Uri.file(
-        path.join(context.extensionPath, 'media', 'cat.gif')
-      );
+      const onDiskPath = vscode.Uri.joinPath(context.extensionUri, 'media', 'cat.gif');
 
       // And get the special URI to use with the webview
       const catGifSrc = panel.webview.asWebviewUri(onDiskPath);
@@ -459,6 +458,20 @@ export function activate(context: vscode.ExtensionContext) {
       panel.webview.html = getWebviewContent(catGifSrc);
     })
   );
+}
+
+function getWebviewContent(catGifSrc: vscode.Uri) {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat Coding</title>
+</head>
+<body>
+    <img src="${catGifSrc}" width="300" />
+</body>
+</html>`;
 }
 ```
 
@@ -487,7 +500,6 @@ We can use `localResourceRoots` to restrict **Cat Coding** webviews to only load
 
 ```ts
 import * as vscode from 'vscode';
-import * as path from 'path';
 
 export function activate(context: vscode.ExtensionContext) {
   context.subscriptions.push(
@@ -498,15 +510,11 @@ export function activate(context: vscode.ExtensionContext) {
         vscode.ViewColumn.One,
         {
           // Only allow the webview to access resources in our extension's media directory
-          localResourceRoots: [
-            vscode.Uri.file(path.join(context.extensionPath, 'media'))
-          ]
+          localResourceRoots: [vscode.Uri.joinPath(context.extensionUri, 'media')]
         }
       );
 
-      const onDiskPath = vscode.Uri.file(
-        path.join(context.extensionPath, 'media', 'cat.gif')
-      );
+      const onDiskPath = vscode.Uri.joinPath(context.extensionUri, 'media', 'cat.gif');
       const catGifSrc = panel.webview.asWebviewUri(onDiskPath);
 
       panel.webview.html = getWebviewContent(catGifSrc);
@@ -561,13 +569,102 @@ The following font related variables are also defined:
 - `--vscode-editor-font-weight` - Editor font weight (from the `editor.fontWeight` setting).
 - `--vscode-editor-font-size` - Editor font size (from the `editor.fontSize` setting).
 
-Finally, for special cases where you need to write CSS that targets a single theme, the body element of webviews has a new data attribute called `vscode-theme-name` that stores the full name of the currently active theme. This lets you write theme-specific CSS for webviews:
+Finally, for special cases where you need to write CSS that targets a single theme, the body element of webviews has a data attribute called `vscode-theme-id` that stores the ID of the currently active theme. This lets you write theme-specific CSS for webviews:
 
 ```css
-body[data-vscode-theme-name="One Dark Pro"] {
+body[data-vscode-theme-id="One Dark Pro"] {
     background: hotpink;
 }
 ```
+
+### Supported media formats
+
+Webviews support audio and video, however not every media codec or media file container type is supported.
+
+The following audio formats can be used in Webviews:
+
+- Wav
+- Mp3
+- Ogg
+- Flac
+
+The following video formats can be used in webviews:
+
+- H.264
+- VP8
+
+For video files, make sure that both the video and audio track's media formats are supported. Many `.mp4` files for example use `H.264` for video and `AAC` audio. VS Code will be able to play the video part of the `mp4`, but since `AAC` audio is not supported there won't be any sound. Instead you need to use `mp3` for the audio track.
+
+### Context menus
+
+Advanced webviews can customize the context menu that shows when a user right-clicks inside of a webview. This is done using a [contribution point](/api/references/contribution-points) similarly to VS Code's normal context menus, so custom menus fit right in with the rest of the editor. Webviews can also show custom context menus for different sections of the webview.
+
+To add a new context menu item to your webview, first add a new entry in `menus` under the new `webview/context` section. Each contribution takes a `command` (which is also where the item's title comes from) and a `when` clause. The [when clause](/api/references/when-clause-contexts) should include `webviewId == 'YOUR_WEBVIEW_VIEW_TYPE'` to make sure the context menus only apply to your extension's webviews:
+
+```json
+"contributes": {
+  "menus": {
+    "webview/context": [
+      {
+        "command": "catCoding.yarn",
+        "when": "webviewId == 'catCoding'"
+      },
+      {
+        "command": "catCoding.insertLion",
+        "when": "webviewId == 'catCoding' && webviewSection == 'editor'"
+      }
+    ]
+  },
+  "commands": [
+    {
+      "command": "catCoding.yarn",
+      "title": "Yarn 🧶",
+      "category": "Cat Coding"
+    },
+    {
+      "command": "catCoding.insertLion",
+      "title": "Insert 🦁",
+      "category": "Cat Coding"
+    },
+    ...
+  ]
+}
+```
+
+Inside of the webview, you can also set the contexts for specific areas of the HTML using the `data-vscode-context` [data attribute](https://developer.mozilla.org/docs/Learn/HTML/Howto/Use_data_attributes) (or in JavaScript with `dataset.vscodeContext`). The `data-vscode-context` value is a JSON object that specifies the contexts to set when the user right-clicks on the element. The final context is determined by going from the document root to the element that was clicked.
+
+Consider this HTML for example:
+
+```html
+<div class="main" data-vscode-context='{"webviewSection": "main", "mouseCount": 4}'>
+  <h1>Cat Coding</h1>
+
+  <textarea data-vscode-context='{"webviewSection": "editor", "preventDefaultContextMenuItems": true}'></textarea>
+</div>
+```
+
+If the user right-clicks on the `textarea`, the following contexts will be set:
+
+* `webviewSection == 'editor'` - This overrides `webviewSection` from the parent element.
+* `mouseCount == 4` - This is inherited from the parent element.
+* `preventDefaultContextMenuItems == true` - This is a special context that hides the copy and paste entries that VS Code normally adds to webview context menus.
+
+If the user right-clicks inside of the `<textarea>`, they will see:
+
+![Custom context menus showing in a webview](images/webview/webview-context-menus.png)
+
+Sometimes it can be useful to show a menu on left/primary click. For example, to show a menu on a split button. You can do this by dispatching the `contextmenu` event in an `onClick` event:
+
+```html
+<button data-vscode-context='{"preventDefaultContextMenuItems": true }' onClick='((e) => {
+        e.preventDefault();
+        e.target.dispatchEvent(new MouseEvent("contextmenu", { bubbles: true, clientX: e.clientX, clientY: e.clientY }));
+        e.stopPropagation();
+    })(event)'>Create</button>
+```
+
+![Split button with a menu](images/webview/webview-split-button-menu.png)
+
 
 ## Scripts and message passing
 
@@ -624,7 +721,7 @@ function getWebviewContent() {
 
 ![A script running in a webview](images/webview/scripts-basic.gif)
 
-Wow! that's one productive cat.
+Wow! That's one productive cat.
 
 Webview scripts can do just about anything that a script on a normal webpage can. Keep in mind though that webviews exist in their own context, so scripts in a webview do not have access to the VS Code API. That's where message passing comes in!
 
@@ -795,9 +892,51 @@ function getWebviewContent() {
 
 For security reasons, you must keep the VS Code API object private and make sure it is never leaked into the global scope.
 
+### Using Web Workers
+
+[Web Workers](https://developer.mozilla.org/docs/Web/API/Web_Workers_API/Using_web_workers) are supported inside of webviews but there are a few important restrictions to be aware of.
+
+First off, workers can only be loaded using either a `data:` or `blob:` URI. You cannot directly load a worker from your extension's folder.
+
+If you do need to load worker code from a JavaScript file in your extension, try using `fetch`:
+
+```js
+const workerSource = 'absolute/path/to/worker.js';
+
+fetch(workerSource)
+  .then(result => result.blob())
+  .then(blob => {
+    const blobUrl = URL.createObjectURL(blob)
+    new Worker(blobUrl);
+  });
+```
+
+Worker scripts also do not support importing source code using `importScripts` or `import(...)`. If your worker loads code dynamically, try using a bundler such as [webpack](https://webpack.js.org) to package the worker script into a single file.
+
+With `webpack`, you can use `LimitChunkCountPlugin` to force the compiled worker JavaScript to be a single file:
+
+```js
+const path = require('path');
+const webpack = require('webpack');
+
+module.exports = {
+  target: 'webworker',
+  entry: './worker/src/index.js',
+  output: {
+    filename: 'worker.js',
+    path: path.resolve(__dirname, 'media'),
+  },
+  plugins: [
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1,
+    }),
+  ],
+};
+```
+
 ## Security
 
-As with any webpage, when creating a webview you must follow some basic security best practices.
+As with any webpage, when creating a webview, you must follow some basic security best practices.
 
 ### Limit capabilities
 
@@ -982,11 +1121,15 @@ function getWebviewContent() {
 }
 ```
 
-![persistence retrain](images/webview/persistence-retrain.gif)
+![retainContextWhenHidden demo](images/webview/retainContextWhenHidden.gif)
 
-Notice how the counter does not reset now when the webview is hidden and then restored. No extra code required! With `retainContextWhenHidden`, the webview acts similarly to a background tab in a web browser. Scripts and other dynamic content are suspended, but immediately resumed once the webview becomes visible again. You cannot send messages to a hidden webview, even when `retainContextWhenHidden` is enabled.
+Notice how the counter does not reset now when the webview is hidden and then restored. No extra code required! With `retainContextWhenHidden`, the webview acts similarly to a background tab in a web browser. Scripts and other dynamic content keep running even when the tab is not active or visible. You can also send messages to a hidden webview when `retainContextWhenHidden` is enabled.
 
 Although `retainContextWhenHidden` may be appealing, keep in mind that this has high memory overhead and should only be used when other persistence techniques will not work.
+
+## Accessibility
+
+The class `vscode-using-screen-reader` will be added to your webview's main body in contexts where the user is operating VS Code with a screen reader. Additionally, the class `vscode-reduce-motion` will be added to the document's main body element in cases where the user has expressed a preference to reduce the amount of motion in the window. By observing these classes and adjusting your rendering accordingly, your webview content can better reflect the user's preferences.
 
 ## Next steps
 

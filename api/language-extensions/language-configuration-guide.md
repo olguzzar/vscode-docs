@@ -1,7 +1,7 @@
 ---
 # DO NOT TOUCH — Managed by doc writer
 ContentId: cd928e7f-bb5a-43b0-8e15-d398e416386d
-DateApproved: 5/5/2021
+DateApproved: 4/15/2026
 
 # Summarize the whole topic in less than 300 characters for SEO purpose
 MetaDescription: A guide to configure language support for any language in Visual Studio Code.
@@ -19,7 +19,7 @@ The [`contributes.languages`](/api/references/contribution-points#contributes.la
 - Word pattern
 - Indentation Rules
 
-Here is a [Language Configuration Sample](https://github.com/microsoft/vscode-extension-samples/tree/main/language-configuration-sample) that configures the editing experience for JavaScript files. This guide explains the content of `language-configuration.json`:
+Here is a [Language Configuration sample](https://github.com/microsoft/vscode-extension-samples/tree/main/language-configuration-sample) that configures the editing experience for JavaScript files. This guide explains the content of `language-configuration.json`:
 
 **Note: If your language configuration file name is or ends with `language-configuration.json`, you will get autocompletion and validation in VS Code.**
 
@@ -57,7 +57,7 @@ Here is a [Language Configuration Sample](https://github.com/microsoft/vscode-ex
   "wordPattern": "(-?\\d*\\.\\d\\w*)|([^\\`\\~\\!\\@\\#\\%\\^\\&\\*\\(\\)\\-\\=\\+\\[\\{\\]\\}\\\\\\|\\;\\:\\'\\\"\\,\\.\\<\\>\\/\\?\\s]+)",
   "indentationRules": {
     "increaseIndentPattern": "^((?!\\/\\/).)*(\\{[^}\"'`]*|\\([^)\"'`]*|\\[[^\\]\"'`]*)$",
-    "decreaseIndentPattern": "^((?!.*?\\/\\*).*\\*/)?\\s*[\\}\\]].*$"
+    "decreaseIndentPattern": "^((?!.*?\\/\\*).*\\*/)?\\s*[\\)\\}\\]].*$"
   }
 }
 ```
@@ -217,7 +217,7 @@ if (true) {
   console.log();
 ```
 
-In addition to `increaseIndentPattern` and `decreaseIndentPatter`, there are two other indentation rules:
+In addition to `increaseIndentPattern` and `decreaseIndentPattern`, there are two other indentation rules:
 
 - `indentNextLinePattern` - If a line matches this pattern, then **only the next line** after it should be indented once.
 - `unIndentedLinePattern` - If a line matches this pattern, then its indentation should not be changed and it should not be evaluated against the other rules.

@@ -20,7 +20,7 @@ VS Code has great features out of the box but now you and the community can exte
 
 ## Extension Marketplace
 
-Find and install cool extensions by searching VS Code's public [Extension Marketplace](/docs/editor/extension-marketplace.md).  There you'll find new themes, snippets, languages and tools.
+Find and install cool extensions by searching VS Code's public [Extension Marketplace](/docs/configure/extensions/extension-marketplace.md).  There you'll find new themes, snippets, languages and tools.
 
 ![extension language](images/0_10_0/extension-language.png)
 
@@ -32,7 +32,7 @@ The VS Code also has a [Marketplace](https://marketplace.visualstudio.com/VSCode
 
 ## Extensibility SDK
 
-If you don't find an existing extension that meets your development needs, you can create your own.  We've added extensive documentation on [how to extend VS Code](/docs/extensions/overview.md) and a full [extensibility API reference](/docs/extensionAPI/overview.md).  In addition, we provide the tools to you need to create and publish extensions.
+If you don't find an existing extension that meets your development needs, you can create your own.  We've added extensive documentation on [how to extend VS Code](/docs/extensions/overview.md) and a full [extensibility API reference](/docs/extensionAPI/overview.md).  In addition, we provide the tools that you need to create and publish extensions.
 
 If you'd like to dive right in, you can start with our ["Hello World"](/docs/extensions/example-hello-world.md) walkthrough where you'll have a VS Code extension up and running in a matter of minutes.
 

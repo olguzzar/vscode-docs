@@ -1,10 +1,6 @@
 ---
-Order: 1
-Area: nodejs
-TOCTitle: Working with JavaScript
-PageTitle: Working with JavaScript in Visual Studio Code
 ContentId: 3e5af2a6-7669-4b5d-b19f-78077af14fda
-DateApproved: 5/5/2021
+DateApproved: 4/15/2026
 MetaDescription: Working with JavaScript in Visual Studio Code
 ---
 # Working with JavaScript
@@ -13,7 +9,7 @@ This topic describes some of the advanced JavaScript features supported by Visua
 
 ## IntelliSense
 
-Visual Studio Code's JavaScript [IntelliSense](/docs/editor/intellisense.md) provides intelligent code completion, parameter info,  references search, and many other advanced language features. Our JavaScript IntelliSense is powered by the [JavaScript language service](https://github.com/microsoft/TypeScript/wiki/JavaScript-Language-Service-in-Visual-Studio) developed by the TypeScript team. While IntelliSense should just work for most JavaScript projects without any configuration, you can make IntelliSense even more useful with [JSDoc](/docs/languages/javascript.md#jsdoc-support) or by configuring a `jsconfig.json` project.
+Visual Studio Code's JavaScript [IntelliSense](/docs/editing/intellisense.md) provides intelligent code completion, parameter info,  references search, and many other advanced language features. Our JavaScript IntelliSense is powered by the [JavaScript language service](https://github.com/microsoft/TypeScript/wiki/JavaScript-Language-Service-in-Visual-Studio) developed by the TypeScript team. While IntelliSense should just work for most JavaScript projects without any configuration, you can make IntelliSense even more useful with [JSDoc](/docs/languages/javascript.md#jsdoc-support) or by configuring a `jsconfig.json` project.
 
 For the details of how JavaScript IntelliSense works, including being based on type inference, JSDoc annotations, TypeScript declarations, and mixing JavaScript and TypeScript projects, see the [JavaScript language service documentation](https://github.com/microsoft/TypeScript/wiki/JavaScript-Language-Service-in-Visual-Studio).
 
@@ -53,7 +49,7 @@ You can alternately explicitly list packages to acquire type declaration files f
 }
 ```
 
-Most common JavaScript libraries ship with declaration files or have type declaration files available. You can search for a library's type declaration file package using the [TypeSearch](https://microsoft.github.io/TypeSearch) site.
+Most common JavaScript libraries ship with declaration files or have type declaration files available.
 
 ### Fixing npm not installed warning for Automatic Type Acquisition
 
@@ -63,13 +59,13 @@ Run `npm --version` from a terminal or command prompt to quickly check that npm 
 
 npm is installed with the Node.js runtime, which is available for download from [Nodejs.org](https://nodejs.org). Install the current LTS (Long Term Support) version and the npm executable will be added by default to your system path.
 
-If you have npm installed but still see a warning message, you can explicitly tell VS Code where npm is installed with the `typescript.npm` [setting](/docs/getstarted/settings.md). This should be set to the full path of the npm executable on your machine, and this does not have to match the version of npm you are using to manage packages in your workspace. `typescript.npm` requires TypeScript 2.3.4+.
+If you have npm installed but still see a warning message, you can explicitly tell VS Code where npm is installed with the `js/ts.tsserver.npm.path` [setting](/docs/configure/settings.md). This should be set to the full path of the npm executable on your machine, and this does not have to match the version of npm you are using to manage packages in your workspace. `js/ts.tsserver.npm.path` requires TypeScript 2.3.4+.
 
 For example, on Windows, you would add a path like this to your `settings.json` file:
 
 ```json
 {
-  "typescript.npm": "C:\\Program Files\\nodejs\\npm.cmd"
+  "js/ts.tsserver.npm.path": "C:\\Program Files\\nodejs\\npm.cmd"
 }
 ```
 
@@ -100,8 +96,8 @@ Below is a simple template for `jsconfig.json` file, which defines the JavaScrip
 ```json
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es6"
+        "module": "CommonJS",
+        "target": "ES6"
     },
     "exclude": [
         "node_modules",
@@ -119,8 +115,8 @@ Here is an example with an explicit `include` attribute:
 ```json
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "target": "es6"
+        "module": "CommonJS",
+        "target": "ES6"
     },
     "include": [
         "src/**/*"
@@ -140,7 +136,7 @@ It is possible to have mixed TypeScript and JavaScript projects. To start migrat
 
 ## Type checking JavaScript
 
-VS Code allows you to leverage some of TypeScript's advanced type checking and error reporting functionality in regular JavaScript files. This is a great way to catch common programming mistakes. These type checks also enable some exciting [Quick Fixes]() for JavaScript, including **Add missing import** and **Add missing property**.
+VS Code allows you to leverage some of TypeScript's advanced type checking and error reporting functionality in regular JavaScript files. This is a great way to catch common programming mistakes. These type checks also enable some exciting Quick Fixes for JavaScript, including **Add missing import** and **Add missing property**.
 
 ![Using type checking and Quick Fixes in a JavaScript file](images/working-with-javascript/checkjs-example.gif)
 
@@ -241,7 +237,7 @@ If you try to use `// @ts-check` with the above code, you'll see a number of err
 
 If you want to continue using `// @ts-check` but are confident that these are not actual issues with your application, you have to let TypeScript know about these global variables.
 
-To start, [create a `jsconfig.json`](#javascript-project-jsconfigjson) at the root of your project:
+To start, [create a `jsconfig.json`](#javascript-projects-jsconfigjson) at the root of your project:
 
 ```json
 {
@@ -275,11 +271,11 @@ One of the key features of TypeScript is the ability to use the latest JavaScrip
 
 The TypeScript compiler `tsc` can down-level compile JavaScript files from ES6 to another language level. Configure the `jsconfig.json` with the desired options and then use the –p argument to make `tsc` use your `jsconfig.json` file, for example `tsc -p jsconfig.json` to down-level compile.
 
-Read more about the compiler options for down level compilation in the [jsconfig documentation](/docs/languages/jsconfig.md#down-level-compilation-with-typescript-compiler).
+Read more about the compiler options for down level compilation in the [jsconfig documentation](/docs/languages/jsconfig.md#jsconfig-options).
 
 ### Running Babel
 
-The [Babel](https://babeljs.io) transpiler turns ES6 files into readable ES5 JavaScript with Source Maps. You can easily integrate **Babel** into your workflow by adding the configuration below to your `tasks.json` file (located under the workspace's `.vscode` folder). The `group` setting makes this task the default **Task: Run Build Task** gesture. `isBackground` tells VS Code to keep running this task in the background. To learn more, go to [Tasks](/docs/editor/tasks.md).
+The [Babel](https://babeljs.io) transpiler turns ES6 files into readable ES5 JavaScript with Source Maps. You can easily integrate **Babel** into your workflow by adding the configuration below to your `tasks.json` file (located under the workspace's `.vscode` folder). The `group` setting makes this task the default **Task: Run Build Task** gesture. `isBackground` tells VS Code to keep running this task in the background. To learn more, go to [Tasks](/docs/debugtest/tasks.md).
 
 ```json
 {
@@ -308,3 +304,42 @@ If you prefer to use JavaScript language features supported by other JavaScript 
 To disable JavaScript/TypeScript support, go to the Extensions view (`kb(workbench.view.extensions)`) and filter on built-in extensions (**Show Built-in Extensions** in the **...** **More Actions** dropdown), then type 'typescript'. Select the **TypeScript and JavaScript Language Features** extension and press the **Disable** button. VS Code built-in extensions cannot be uninstalled, only disabled, and can be re-enabled at any time.
 
 ![TypeScript and JavaScript Language Features extension](images/working-with-javascript/disable-TS-language.png)
+
+## Partial IntelliSense mode
+
+VS Code tries to provide project-wide IntelliSense for JavaScript and TypeScript, which is what makes features such as auto-imports and **Go to Definition** possible. However, there are some cases where VS Code is limited to working only with your currently opened files and is unable to load the other files that make up your JavaScript or TypeScript project.
+
+This can happen in a few instances:
+
+- You are working with JavaScript or TypeScript code on [vscode.dev](https://vscode.dev) or [github.dev](https://docs.github.com/codespaces/developing-in-codespaces/web-based-editor) and VS Code is running in the browser.
+- You open a file from a virtual file system (such as when using the [GitHub Repositories](https://marketplace.visualstudio.com/items?itemName=GitHub.remotehub) extension).
+- The project is currently loading. Once loading completes, you will start getting project-wide IntelliSense for it.
+
+In these cases, VS Code's IntelliSense will operate in **partial mode**. Partial mode tries its best to provide IntelliSense for any JavaScript or TypeScript files you have open, but is limited and is not able to offer any cross-file IntelliSense features.
+
+### Which features are impacted?
+
+Here's an incomplete list of features that are either disabled or have more limited functionality in partial mode:
+
+- All opened files are treated as part of a single project.
+- Configuration options from your `jsconfig` or `tsconfig` (such as `target`) are not respected.
+- Only syntax errors are reported. Semantic errors — such as accessing an unknown property or passing the wrong type to a function — are not reported.
+- Quick Fixes for semantic errors are disabled.
+- Symbols can only be resolved within the current file. Any symbols imported from other files will be treated as being of the `any` type.
+- Commands such as **Go to Definition** and **Find All References** will only work for opened files instead of across the entire project. This also means that symbol from any packages you install under `node_module` will not be resolved.
+- Workspace symbol search will only include symbols from currently opened files.
+- Auto imports are disabled.
+- Renaming is disabled.
+- Many refactorings are disabled.
+
+Some additional features are disabled on `vscode.dev` and `github.dev`:
+
+- [Automatic type acquisition](/docs/nodejs/working-with-javascript.md#typings-and-automatic-type-acquisition) is currently not supported.
+
+### Checking if you are in partial mode
+
+To check if the current file is using partial mode IntelliSense instead of project-wide IntelliSense, hover over the `JavaScript` or `TypeScript` language status item in the status bar:
+
+![Partial mode status item](images/working-with-javascript/partial-mode-status-item.png)
+
+The status item will show `Partial mode` if the current file is in partial mode.

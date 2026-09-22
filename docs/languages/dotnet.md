@@ -1,28 +1,35 @@
 ---
-Order: 16
-Area: languages
-TOCTitle: .NET Core
 ContentId: AFFD7BDB-925E-4D02-828D-4E14360C70DA
-PageTitle: .NET Core and Visual Studio Code
-DateApproved: 3/6/2019
-MetaDescription: Get started writing and debugging .NET Core apps with Visual Studio Code.
-MetaTags:
-- .NET Core
-- ASP.NET Core
-- C#
-- F#
+DateApproved: 4/15/2026
+MetaDescription: Get started writing and debugging .NET apps with Visual Studio Code.
 ---
-# Using .NET Core in Visual Studio Code
+# Using .NET in Visual Studio Code
 
-[.NET Core](https://docs.microsoft.com/dotnet/core) provides a fast and modular platform for creating server apps that run on Windows, Linux, and macOS. Use Visual Studio Code with the C# and F# extensions to get a powerful editing experience with [C# IntelliSense](https://docs.microsoft.com/visualstudio/ide/visual-csharp-intellisense), F# IntelliSense (smart code completion), and debugging.
+[.NET](https://dotnet.microsoft.com) provides a fast and modular platform for creating many different types of applications that run on Windows, Linux, and macOS. Use Visual Studio Code with the C# and F# extensions to get a powerful editing experience with [C# IntelliSense](https://learn.microsoft.com/visualstudio/ide/visual-csharp-intellisense), F# IntelliSense (smart code completion), and debugging.
 
-## Prerequisites
+## Setting up VS Code for .NET development
 
-Install the following:
+If you are an existing VS Code user, you can add .NET support by installing the [C# Dev Kit](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit) extension. C# Dev Kit brings a productive and reliable C# experience into VS Code, facilitating C# or multi-language development in VS Code. This extension pack consists of a set of VS Code extensions that work together to provide a rich C# editing experience, AI-powered development, solution management, and integrated testing experiences. As shown in the graphic below, C# Dev Kit consists of:
 
-* [.NET Core SDK](https://dotnet.microsoft.com/download). The SDK also includes the Runtime.
-* The [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) from the VS Code Marketplace.
-* The [F# extension (Ionide)](https://marketplace.visualstudio.com/items?itemName=Ionide.Ionide-fsharp) from the VS Code Marketplace.
+* The [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp), which provides the base language services support and continues to be worked on and maintained independent of this effort.
+* [C# Dev Kit extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit), which builds on the same base foundation as Visual Studio and provides solution management, templates, test discovery/debugging.
+* The IntelliCode for C# Dev Kit extension(optional), which provides the AI-powered development experience to the editor.
+
+![C# Dev Kit extension](images/csharp/csharp-devkit.png)
+
+If your projects require F# support, you can also download the [.NET Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.vscode-dotnet-pack), which includes these extensions:
+
+* [C# Dev Kit for Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csdevkit)
+* [Ionide for F#](https://marketplace.visualstudio.com/items?itemName=Ionide.Ionide-fsharp)
+* [Jupyter Notebooks](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter)
+
+You can also install extensions separately.
+
+## Installing the .NET Software Development Kit
+
+If you download the extensions separately, ensure that you also have the .NET SDK on your local environment. The .NET SDK is a software development environment used for developing .NET applications.
+
+<a class="install-extension-btn" href="https://aka.ms/vscDocs/dotnet/download">Install the .NET SDK</a>
 
 ## Create a C# "Hello World" app
 
@@ -31,7 +38,7 @@ Install the following:
    * Open a terminal/command prompt and navigate to the folder in which you'd like to create the app.
    * Enter the following command in the command shell:
 
-   ```cmd
+   ```bat
      dotnet new console
    ```
 
@@ -42,11 +49,9 @@ Install the following:
 
 3. Run the app by entering the following command in the command shell:
 
-   ```cmd
+   ```bat
    dotnet run
    ```
-
-Watch a video tutorial for further C# setup help on [Windows](https://channel9.msdn.com/Blogs/dotnet/Get-started-VSCode-Csharp-NET-Core-Windows), [macOS](https://channel9.msdn.com/Blogs/dotnet/Get-started-VSCode-NET-Core-Mac), or [Linux](https://channel9.msdn.com/Blogs/dotnet/Get-started-with-VS-Code-Csharp-dotnet-Core-Ubuntu).
 
 ## Create an F# "Hello World" app
 
@@ -55,29 +60,30 @@ Watch a video tutorial for further C# setup help on [Windows](https://channel9.m
    * Open a terminal/command prompt and navigate to the folder in which you'd like to create the app.
    * Enter the following command in the command shell:
 
-   ```cmd
+   ```bat
    dotnet new console -lang "F#"
    ```
 
 2. Once it completes, open the project in Visual Studio Code:
 
-   ```cmd
+   ```bat
    code .
    ```
 
 3. Run the app by entering the following command in the command shell:
 
-   ```cmd
+   ```bat
     dotnet run
    ```
 
 ## Next steps
 
-* Continue exploring C# development: [Debug with VS Code and .NET Core](https://docs.microsoft.com/dotnet/articles/csharp/getting-started/with-visual-studio-code#debug)
-* [Basic Editing](/docs/editor/codebasics.md) - Learn about the powerful VS Code editor.
-* [Code Navigation](/docs/editor/editingevolved.md) - Move quickly through your source code.
-* [Working with C#](/docs/languages/csharp.md) - Learn about the great C# support you'll have when working on your .NET Core application.
-* [Tasks](/docs/editor/tasks.md) - Running tasks with Gulp, Grunt, and Jake.  Showing Errors and Warnings
-* [.NET Core Docs](https://docs.microsoft.com/dotnet/core/) - Visit the .NET Core docs for more information on this powerful cross-platform development solution.
+* [C# Dev Kit documentation](/docs/csharp/get-started.md)
+* Continue exploring C# development: [Debug with VS Code and .NET](https://learn.microsoft.com/dotnet/core/tutorials/debugging-with-visual-studio-code)
+* [Basic Editing](/docs/editing/codebasics.md) - Learn about the powerful VS Code editor.
+* [Code Navigation](/docs/editing/editingevolved.md) - Move quickly through your source code.
+* [Working with C#](/docs/languages/csharp.md) - Learn about the great C# support you'll have when working on your .NET application.
+* [Tasks](/docs/debugtest/tasks.md) - Running tasks with Gulp, Grunt, and Jake.  Showing Errors and Warnings
+* [.NET Docs](https://learn.microsoft.com/dotnet) - Visit the .NET docs for more information on this powerful cross-platform development solution.
 * [Deploying Applications to Azure](/docs/azure/deployment.md) - Deploy your app to [Azure](https://azure.microsoft.com).
-* [Get Started with F# in Visual Studio Code](https://docs.microsoft.com/dotnet/fsharp/get-started/get-started-vscode)
+* [Get Started with F# in Visual Studio Code](https://learn.microsoft.com/dotnet/fsharp/get-started/get-started-vscode)

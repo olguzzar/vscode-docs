@@ -1,7 +1,7 @@
 ---
 # DO NOT TOUCH — Managed by doc writer
 ContentId: 8b70dba5-f71d-46dd-8da1-f5d44b9a6a96
-DateApproved: 5/5/2021
+DateApproved: 4/15/2026
 
 # Summarize the whole topic in less than 300 characters for SEO purpose
 MetaDescription: Learn how to write a Language Extension (plug-in) to add support for a programming language in Visual Studio Code.
@@ -9,7 +9,11 @@ MetaDescription: Learn how to write a Language Extension (plug-in) to add suppor
 
 # Language Extensions Overview
 
-Visual Studio Code provides smart editing features for different programming languages through Language Extensions. VS Code doesn't provide built-in language support but offers a set of APIs that enable rich language features. For example, it has a bundled [HTML](https://github.com/microsoft/vscode/tree/main/extensions/html) extension that allows VS Code to show syntax highlighting for HTML files. Similarly, when you type `console.` and `log` shows up in IntelliSense, it is the [Typescript Language Features](https://github.com/microsoft/vscode/tree/main/extensions/typescript-language-features) extension at work.
+Visual Studio Code provides smart editing features for different programming languages through Language Extensions. VS Code doesn't provide built-in language support in the core editor but offers a set of APIs that enable rich language features.
+
+For example, the [HTML](https://github.com/microsoft/vscode/tree/main/extensions/html) extension uses these APIs to show syntax highlighting for HTML files. Similarly, when you type `console.` and `log` shows up in IntelliSense, it is the [Typescript Language Features](https://github.com/microsoft/vscode/tree/main/extensions/typescript-language-features) extension at work.
+
+VS Code bundles some of these extensions with the editor to provide you with rich language support from the start.
 
 Language features can be roughly put into two categories:
 
@@ -28,9 +32,9 @@ Declarative language features are defined in configuration files. Examples inclu
 
 We have three guides for writing Language Extensions that provide Declarative Language Features.
 
-- [Syntax Highlight Guide](/api/language-extensions/syntax-highlight-guide): VS Code uses TextMate grammar for syntax highlighting. This guide will walk you through writing a simple TextMate grammar and converting it into a VS Code extension.
-- [Snippet Completion Guide](/api/language-extensions/snippet-guide): This guide explains how to bundle a set of snippets into an extension.
-- [Language Configuration Guide](/api/language-extensions/language-configuration-guide): VS Code allows extensions to define a **language configuration** for any programming language. This file controls basic editing features such as comment toggling, bracket matching/surrounding and region folding (legacy).
+- [Syntax Highlight guide](/api/language-extensions/syntax-highlight-guide): VS Code uses TextMate grammar for syntax highlighting. This guide will walk you through writing a simple TextMate grammar and converting it into a VS Code extension.
+- [Snippet Completion guide](/api/language-extensions/snippet-guide): This guide explains how to bundle a set of snippets into an extension.
+- [Language Configuration guide](/api/language-extensions/language-configuration-guide): VS Code allows extensions to define a **language configuration** for any programming language. This file controls basic editing features such as comment toggling, bracket matching/surrounding and region folding (legacy).
 
 ## Programmatic language features
 
@@ -69,4 +73,4 @@ When the user opens a [multi-root workspace](/docs/editor/multi-root-workspaces)
 
 ### Embedded languages
 
-Embedded languages are common in web development. For example, CSS/JS inside HTML, and GraphQL inside JavaScript/TypeScript. This topic discusses how you can make language features available to embedded languages.
+Embedded languages are common in web development. For example, CSS/JavaScript inside HTML, and GraphQL inside JavaScript/TypeScript. The [Embedded languages](/api/language-extensions/embedded-languages) topic discusses how you can make language features available to embedded languages.

@@ -1,5 +1,5 @@
 ---
-Order: 40
+Order:
 TOCTitle: Logpoints and auto-attach
 PageTitle: Introducing Logpoints and auto-attach
 MetaDescription: Introducing Logpoints and auto-attach to make debugging easier and simpler to use in Visual Studio Code
@@ -52,9 +52,9 @@ In VS Code, we have two core concepts for debugging: **Launch** and **Attach**, 
 
 If you come from a browser DevTools background, you aren't used to the concept of "launching from your tool" since your browser instance is already open. When you open DevTools, you are simply **attaching** DevTools to your open browser tab. On the other hand, if you come from a Java background, it's quite normal to have your editor **launch** your Java process for you, and your editor automatically attaches its debugger to the newly launched process.
 
-The best way to explain the difference between **launch** and **attach** is to think about [launch configurations](/docs/editor/debugging#_launch-configurations) as a recipe for how to start your app in debug mode **before** VS Code attaches to it, while an [attach config](/docs/editor/debugging#_launchjson-attributes) is a recipe for how to connect VS Code's debugger to an app or process that's **already** running.
+The best way to explain the difference between **launch** and **attach** is to think about [launch configurations](/docs/debugtest/debugging#_launch-configurations) as a recipe for how to start your app in debug mode **before** VS Code attaches to it, while an [attach config](/docs/debugtest/debugging#_launchjson-attributes) is a recipe for how to connect VS Code's debugger to an app or process that's **already** running.
 
-The value of [launch configurations](/docs/editor/debugging#_launch-configurations) is that they give you a way to offload some of the cognitive overhead of launching your app with the right debugging parameters by creating a configuration that's repeatable and shareable with your project and team.
+The value of [launch configurations](/docs/debugtest/debugging#_launch-configurations) is that they give you a way to offload some of the cognitive overhead of launching your app with the right debugging parameters by creating a configuration that's repeatable and shareable with your project and team.
 
 However, when we talked to developers about how they were launching their applications, we saw a pattern and made one important observation:
 
@@ -71,12 +71,6 @@ Logging for debugging isn't a new concept but the observation was important:
 **Observation**: Traditional debugging workflows are most focused around slowing down execution to inspect program logic, while logging workflows usually involve inspecting program state and how it changes during the normal execution of an application. The fundamental observation here is that the two techniques are used for different debugging purposes.
 
 This observation is especially relevant for JavaScript developers, who mostly deal with the complexity of managing state, and this might explain why [most JavaScript developers still prefer to add console.log's](https://christianheilmann.com/2017/07/08/debugging-javascript-console-loggerheads/) to their source code instead of using a script debugger.
-
-<br />
-
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Debuggers don&#39;t actually remove bugs, they just run your code as slow as you can think.</p>&mdash; Daniel Rosenwasser (@drosenwasser) <a href="https://twitter.com/drosenwasser/status/1009850470221791232?ref_src=twsrc%5Etfw">June 21, 2018</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<br />
 
 ## Auto-attaching to Node processes
 
@@ -112,7 +106,7 @@ A Logpoint is a breakpoint variant that does not "break" into the debugger but i
 
 ![Logpoints](logpoints.gif)
 
-The concept for Logpoints isn't new, and over the past few years, we have seen different flavors of this concept in tools like [Visual Studio](https://codewala.net/2018/01/25/tracepoint-an-awsome-feature-of-visual-studio/), [Edge DevTools](https://docs.microsoft.com/microsoft-edge/devtools-guide/debugger) and [GDB](https://sourceware.org/gdb/onlinedocs/gdb/Tracepoints.html) under several names such as Tracepoints and [Logpoints](https://devblogs.microsoft.com/visualstudio/debug-live-apps-in-azure-with-the-snappoints-and-logpoints-preview).
+The concept for Logpoints isn't new, and over the past few years, we have seen different flavors of this concept in tools like [Visual Studio](https://codewala.net/2018/01/25/tracepoint-an-awsome-feature-of-visual-studio/), [Edge DevTools](https://learn.microsoft.com/microsoft-edge/devtools-guide-chromium/landing/) and [GDB](https://sourceware.org/gdb/onlinedocs/gdb/Tracepoints.html) under several names such as Tracepoints and [Logpoints](https://devblogs.microsoft.com/visualstudio/debug-live-apps-in-azure-with-the-snappoints-and-logpoints-preview).
 
 ### Why and when to use Logpoints?
 

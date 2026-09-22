@@ -1,23 +1,22 @@
 ---
-Order:
-Area: cpp
-TOCTitle: Enhanced colorization
 ContentId: 2C406EA6-87DC-4A2D-AEC2-90BAA491697C
-PageTitle: Enhanced colorization in Visual Studio Code C++ projects
-DateApproved: 07/29/2019
+DateApproved: 2/23/2023
 MetaDescription: How to customize semantic colorization of C++ code in Visual Studio Code.
+Keywords:
+- C++
+- Bunny
 ---
 # Enhanced colorization
 
 The Visual Studio Code C/C++ extension now supports semantic colorization, when IntelliSense is enabled.  Use of enhanced colorization is controlled by the C_Cpp.enhancedColorization setting.  This setting is enabled by default.
 
 ```json
-"C_Cpp.enhancedColorization": "Enabled"
+"C_Cpp.enhancedColorization": "enabled"
 ```
 
 ## Themes
 
-Colors can be associated using the existing support for theming and color customization in VS Code.  See the [VS Code Themes documentation](/docs/getstarted/themes.md) for more information.
+Colors can be associated using the existing support for theming and color customization in VS Code.  See the [VS Code Themes documentation](/docs/configure/themes.md) for more information.
 
 Colors are associated with [semantic tokens](https://code.visualstudio.com/api/extension-guides/color-theme#semantic-colors) as well as [TextMate scopes](https://macromates.com/manual/en/language_grammars#naming_conventions).
 
@@ -40,7 +39,7 @@ We've created a set of VS Code themes that closely resemble the default Light an
 | Local Variable | variable.local | variable.other.local |
 | Macro | macro | entity.name.function.preprocessor |
 | Member Field | property | variable.other.property |
-| Member Function | member | entity.name.function.member |
+| Member Function | method | entity.name.function.member |
 | Namespace | namespace | entity.name.namespace |
 | New / Delete | newOperator | keyword.operator.new |
 | Operator Overload Function | operatorOverload | entity.name.function.operator |
@@ -49,7 +48,7 @@ We've created a set of VS Code themes that closely resemble the default Light an
 | Property (C++/CLI) | cliProperty | variable.other.property.cli |
 | Reference Type (C++/CLI) | referenceType | entity.name.type.class.reference |
 | Static Member Field | property.static | variable.other.property.static |
-| Static Member Function | member.static | entity.name.function.member.static |
+| Static Member Function | method.static | entity.name.function.member.static |
 | Type | type | entity.name.type |
 | User-Defined Literal - Number | numberLiteral | entity.name.operator.custom-literal.number |
 | User-Defined Literal - Raw | customLiteral | entity.name.operator.custom-literal |
