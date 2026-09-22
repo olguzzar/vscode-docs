@@ -1,5 +1,5 @@
 ---
-Order: 27
+Order:
 TOCTitle: Sublime Text Extension Roundup
 PageTitle: Sublime Text Extension Roundup
 MetaDescription: Learn about VS Code extensions to add features that are missing from Sublime Text.
@@ -90,10 +90,6 @@ Marketplace - [Sublime Commands](https://marketplace.visualstudio.com/items?item
 Author - [Zarel](https://marketplace.visualstudio.com/search?term=publisher%3A%22Zarel%22&target=VSCode)
 
 Ports the **Transpose**, **Expand Selection to Line**, and **Split into Lines** commands to VS Code.
-
-## Want to see your extension featured?
-
-Have other extensions you like or want to see your extension in the next Roundup? Ping me on [Twitter](https://twitter.com/waderyan_)!
 
 Wade Anderson, VS Code Team Member
 [@waderyan_](https://twitter.com/waderyan_)

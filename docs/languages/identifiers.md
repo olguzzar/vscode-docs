@@ -1,9 +1,6 @@
 ---
-Area: languages
-TOCTitle: Language Identifiers
 ContentId: 3f773ade-7e71-4fb9-9bb9-d9e0b20fa799
-PageTitle: Visual Studio Code language identifiers
-DateApproved: 9/10/2020
+DateApproved: 4/22/2026
 MetaDescription: Visual Studio Code language mode identifiers
 ---
 # Language Identifiers
@@ -61,55 +58,76 @@ The following table lists known language identifiers:
 
 Language | Identifier
 -------- | ----------
-ABAP | `abap`
-Windows Bat | `bat`
+Agent | `chatagent`
+Batch | `bat`
 BibTeX | `bibtex`
-Clojure | `clojure`
-Coffeescript | `coffeescript`
+Binary | `code-text-binary`
 C | `c`
-C++ | `cpp`
 C# | `csharp`
+C++ | `cpp`
+Clojure | `clojure`
+Code Snippets | `snippets`
+CoffeeScript | `coffeescript`
+Compose | `dockercompose`
 CSS | `css`
+CUDA C++ | `cuda-cpp`
+Dart | `dart`
 Diff | `diff`
-Dockerfile | `dockerfile`
+Docker | `dockerfile`
+Dotenv | `dotenv`
 F# | `fsharp`
-Git | `git-commit` and `git-rebase`
+Git Commit Message | `git-commit`
+Git Rebase Message | `git-rebase`
 Go | `go`
 Groovy | `groovy`
 Handlebars | `handlebars`
+HLSL | `hlsl`
 HTML | `html`
+Ignore | `ignore`
 Ini | `ini`
+Instructions | `instructions`
 Java | `java`
 JavaScript | `javascript`
-JavaScript React | `javascriptreact`
+JavaScript JSX | `javascriptreact`
 JSON | `json`
+JSON Lines | `jsonl`
 JSON with Comments | `jsonc`
+Julia | `julia`
+Julia Markdown | `juliamarkdown`
 LaTeX | `latex`
 Less | `less`
+Log | `log`
 Lua | `lua`
 Makefile | `makefile`
 Markdown | `markdown`
+MS SQL | `sql`
 Objective-C | `objective-c`
 Objective-C++ | `objective-cpp`
-Perl | `perl` and `perl6`
+Perl | `perl`
 PHP | `php`
 Plain Text | `plaintext`
 PowerShell | `powershell`
+Prompt | `prompt`
+Properties | `properties`
 Pug | `jade`
 Python | `python`
 R | `r`
-Razor (cshtml) | `razor`
+Raku | `raku`
+Razor | `razor`
+reStructuredText | `restructuredtext`
 Ruby | `ruby`
 Rust | `rust`
-SCSS | `scss` (syntax using curly brackets), `sass` (indented syntax)
+SCSS | `scss`
+Search Result | `search-result`
 ShaderLab | `shaderlab`
-Shell Script (Bash) | `shellscript`
-SQL | `sql`
+Shell Script | `shellscript`
+Skill | `skill`
 Swift | `swift`
-TypeScript | `typescript`
-TypeScript React | `typescriptreact`
 TeX | `tex`
+TypeScript | `typescript`
+TypeScript JSX | `typescriptreact`
 Visual Basic | `vb`
+WebAssembly Text Format | `wat`
 XML | `xml`
 XSL | `xsl`
 YAML | `yaml`

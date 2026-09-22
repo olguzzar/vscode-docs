@@ -114,7 +114,7 @@ This is just the beginning of our journey to become more keyboard accessible, ex
 
 ### Experimental screen reader support in the editor
 
-We have added an experimental mode that can be enabled with the `editor.experimentalScreenReader` key in settings or for the current session with `kbstyle(Ctrl+Shift+R)`. This causes the editor to place all the current text in the opened file inside the `<textarea>` we use for user input. We have done our initial testing with the [NVDA screen reader](https://www.nvaccess.org) on Windows and have uncovered some serious performance issues and glitches caused by Chromium which we continue to work on. We have also added `kbstyle(Alt+F1)` that presents a tooltip explaining how to toggle this mode on and off. We have also improved keyboard navigation around `kbstyle(Tab)`, specifically all read-only editors no longer trap the `kbstyle(Tab)` key. Also, `kbstyle(Ctrl+M)` continues to act as a toggle for trapping `kbstyle(Tab)`.
+We have added an experimental mode that can be enabled with the `editor.experimentalScreenReader` key in settings or for the current session with `kbstyle(Ctrl+Shift+R)`. This causes the editor to place all the current text in the opened file inside the `textarea` element we use for user input. We have done our initial testing with the [NVDA screen reader](https://www.nvaccess.org) on Windows and have uncovered some serious performance issues and glitches caused by Chromium which we continue to work on. We have also added `kbstyle(Alt+F1)` that presents a tooltip explaining how to toggle this mode on and off. We have also improved keyboard navigation around `kbstyle(Tab)`, specifically all read-only editors no longer trap the `kbstyle(Tab)` key. Also, `kbstyle(Ctrl+M)` continues to act as a toggle for trapping `kbstyle(Tab)`.
 
 ### Localization
 
@@ -229,7 +229,7 @@ Whenever the editor contents is not loaded from the file system but comes from t
 
 ### Remote Debugging
 
-The followings improvements enable VS Code to support remote debugging, includes debugging into a Docker container:
+The following improvements enable VS Code to support remote debugging, includes debugging into a Docker container:
 
 * The `attach` launch configuration now supports an `address` attribute where a remote host can be specified. Please note that remote debugging is only supported on recent versions of Node.js (>= 4.x).
 * The `attach` launch configuration now supports a `localRoot` and a `remoteRoot` attribute that can be used to map paths between a local VS Code project and a (remote) Node.js folder. This works even locally on the same system or across different operating systems. Whenever a code path needs to be converted from the remote Node.js to a local VS Code path, the `remoteRoot` path is stripped off the path and replaced by `localRoot`. For the reverse conversion, the `localRoot` path is replaced by the `remoteRoot`.
@@ -252,7 +252,7 @@ For VS Code Mono debugging support, we've added an `externalConsole` attribute, 
 
 ### API Consumption
 
-When you write an extension for VS Code, you are developing it against a set of APIs that we define through a file called `vscode.d.ts`. You can see this file in our repository [here](https://github.com/microsoft/vscode/blob/master/src/vs/vscode.d.ts). This file is picked up from our TypeScript and JavaScript language service to provide you with rich validation and IntelliSense while you develop your extension.
+When you write an extension for VS Code, you are developing it against a set of APIs that we define through a file called `vscode.d.ts`. You can see this file in our repository [here](https://github.com/microsoft/vscode/blob/main/src/vs/vscode.d.ts). This file is picked up from our TypeScript and JavaScript language service to provide you with rich validation and IntelliSense while you develop your extension.
 
 As we make changes to the VS Code API between versions, `vscode.d.ts` changes and is updated and tagged from release to release. Previously, we stored the `vscode.d.ts` file within the `vscode` npm module that all extensions automatically depend on. So to update to our latest API, you would just install a newer version of the `vscode` npm module in your extension by typing `npm update vscode`.
 
@@ -362,7 +362,7 @@ More examples can be found in these debug adapter projects on GitHub:
 * [Microsoft/vscode-mock-debug](https://github.com/microsoft/vscode-mock-debug)
 * [Microsoft/vscode-mono-debug](https://github.com/microsoft/vscode-mono-debug)
 
-You can see the Promise-based API in [DebugClient.ts](https://github.com/microsoft/vscode-node-debug/blob/master/src/tests/DebugClient.ts) and an initial set of tests in [adapter.test.ts](https://github.com/microsoft/vscode-node-debug/blob/master/src/tests/adapter.test.ts). We plan to make this API available as an npm module in February.
+You can see an initial set of tests in [adapter.test.ts](https://github.com/microsoft/vscode-node-debug/blob/main/src/tests/adapter.test.ts). We plan to make this API available as an npm module in February.
 
 ### JSON mode is now an extension
 

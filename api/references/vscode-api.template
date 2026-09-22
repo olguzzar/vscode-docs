@@ -1,10 +1,10 @@
 ---
 # DO NOT TOUCH — Managed by doc writer
 ContentId: 8CEBCDF8-4F0A-4C81-A904-3DEA43480EA6
-DateApproved: 9/10/2020
+DateApproved: 02/04/2026
 
-VSCodeCommitHash: 00754e4babebc9ee5aa881234bc16366c4f32aa9
-VSCodeVersion: 1.49.0
+VSCodeCommitHash: 173f07e5fc9aeeb33a6a7ea1c62a7456dc1d5108
+VSCodeVersion: 1.117.0
 
 # Summarize the whole topic in less than 300 characters for SEO purpose
 MetaDescription: Visual Studio Code extensions (plug-in) API Reference.
@@ -16,7 +16,7 @@ MetaDescription: Visual Studio Code extensions (plug-in) API Reference.
 
 ## API namespaces and classes
 
-This listing is compiled from the [`vscode.d.ts`](https://github.com/microsoft/vscode/blob/master/src/vs/vscode.d.ts) file from the VS Code repository.
+This listing is compiled from the [vscode.d.ts](https://github.com/microsoft/vscode/blob/main/src/vscode-dts/vscode.d.ts) file from the VS Code repository.
 
 {$ Content $}
 

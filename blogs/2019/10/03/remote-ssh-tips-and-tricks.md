@@ -1,5 +1,5 @@
 ---
-Order: 51
+Order: 
 TOCTitle: SSH Tips and Tricks
 PageTitle: Visual Studio Code Remote SSH Tips and Tricks
 MetaDescription: Visual Studio Code Remote-SSH Tips and Tricks
@@ -106,7 +106,7 @@ Host *
 
 If you are restricted by a firewall or your company locks down your VMs and they cannot connect to the Internet, the Remote - SSH extension won't be able to connect to your VM because VS Code needs to download a component called the VS Code Server to the remote machine.
 
-However, you can now solve this issue by a new user [setting](/docs/getstarted/settings.md) in the Remote - SSH extension. If you enable the setting `remote.SSH.allowLocalServerDownload`, the extension will install the VS Code Server on the client first and then copy it over to the server via SCP.
+However, you can now solve this issue by a new user [setting](/docs/configure/settings.md) in the Remote - SSH extension. If you enable the setting `remote.SSH.allowLocalServerDownload`, the extension will install the VS Code Server on the client first and then copy it over to the server via SCP.
 
 **Note**: This is currently an experimental feature but will be turned on by default in the next release.
 
@@ -116,7 +116,7 @@ If you're interested in testing new updates and experimental features as soon as
 
 ## We'd like your feedback
 
-Thanks for trying out the Remote - SSH extension! If you run into any issues or would like to suggest new features or scenarios for us, please open an issue on our [GitHub repo](https://github.com/microsoft/vscode-remote-release/issues). If you want to see what features we're currently working on or are upcoming, take a look at our Remote Development [release notes](https://github.com/microsoft/vscode-docs/tree/master/remote-release-notes) and [iteration plans](https://github.com/microsoft/vscode-remote-release/issues?q=is%3Aopen+is%3Aissue+label%3Aiteration-plan). You can also try out the introductory [Remote development over SSH tutorial](https://code.visualstudio.com/docs/remote/ssh-tutorial), which walk you through using the other remote extensions to work inside Docker containers and the [Window Subsystem for Linux](https://docs.microsoft.com/windows/wsl) (WSL).
+Thanks for trying out the Remote - SSH extension! If you run into any issues or would like to suggest new features or scenarios for us, please open an issue on our [GitHub repo](https://github.com/microsoft/vscode-remote-release/issues). If you want to see what features we're currently working on or are upcoming, take a look at our Remote Development [release notes](https://github.com/microsoft/vscode-docs/blob/main/remote-release-notes) and [iteration plans](https://github.com/microsoft/vscode-remote-release/issues?q=is%3Aopen+is%3Aissue+label%3Aiteration-plan). You can also try out the introductory [Remote development over SSH tutorial](https://code.visualstudio.com/docs/remote/ssh-tutorial), which walk you through using the other remote extensions to work inside Docker containers and the [Window Subsystem for Linux](https://learn.microsoft.com/windows/wsl) (WSL).
 
 Happy Remote Coding,
 

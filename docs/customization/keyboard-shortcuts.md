@@ -33,6 +33,7 @@ Key|Command
 `kb(scrollPagedown)`|Scroll page down
 `kb(editor.fold)`|Fold (collapse) region
 `kb(editor.unfold)`|Unfold (uncollapse) region
+`kb(editor.toggleFold)`|Toggle Fold region
 `kb(editor.foldRecursively)`|Fold (collapse) all subregions
 `kb(editor.unfoldRecursively)`|Unfold (uncollapse) all subregions
 `kb(editor.foldAll)`|Fold (collapse) all regions
@@ -140,7 +141,7 @@ Key|Command
 `kb(workbench.action.files.openFileFolder)`|Open File... (macOS)
 `kb(workbench.action.files.save)`|Save
 `kb(workbench.action.files.saveAs)`|Save As...
-`kb(workbench.action.files.saveAll)`|Save All
+`kb(saveAll)`|Save All
 `kb(workbench.action.closeActiveEditor)`|Close
 `kb(workbench.action.closeAllEditors)`|Close All
 `kb(workbench.action.reopenClosedEditor)`|Reopen closed editor

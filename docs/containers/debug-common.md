@@ -1,45 +1,40 @@
 ---
-Order: 5
-Area: containers
-TOCTitle: Debug
 ContentId: A1371726-5310-4923-B43B-240F36C6264E
-PageTitle: Debug an app running in a Docker container
-DateApproved: 01/29/2020
-MetaDescription: Debug an app running in a Docker container, using Visual Studio Code.
+DateApproved: 12/14/2023
+MetaDescription: Debug an app running in a container, using Visual Studio Code.
 ---
 # Debug containerized apps
 
-With version 0.9.0 and later, the Docker extension provides more support for debugging applications within Docker containers, such as scaffolding `launch.json` configurations for attaching a debugger to applications running within a container.
+The Container Tools extension provides more support for debugging applications within containers, such as scaffolding `launch.json` configurations for attaching a debugger to applications running within a container.
 
-The Docker extension provides a `docker` debug configuration provider that manages how VS Code will launch an application and/or attach a debugger to the application in a running Docker container. This provider is configured via entries within `launch.json`, with configuration being specific to each application platform supported by the provider.
+The Container Tools extension provides a `docker` debug configuration provider that manages how VS Code will launch an application and/or attach a debugger to the application in a running container. This provider is configured via entries within `launch.json`, with configuration being specific to each application platform supported by the provider.
 
-The Docker extension currently supports debugging [Node.js](#node-js), [Python](#python), and [.NET Core](#net-core) applications within Docker containers.
+The Container Tools extension currently supports debugging [Node.js](#nodejs), [Python](#python), and [.NET](#net) applications within containers.
 
 ## Requirements
 
-Scaffolding or pasting a launch configuration into `launch.json` is **not sufficient** to build and debug a Docker container. To successfully run a Docker launch configuration, you must have:
+Scaffolding or pasting a launch configuration into `launch.json` is **not sufficient** to build and debug a container. To successfully run a container launch configuration, you must have:
 
 - A Dockerfile.
 - `docker-build` and `docker-run` tasks in `tasks.json`.
 - A launch configuration that invokes these tasks.
 
-We recommend using the **Docker: Add Docker Files to Workspace...** command to create these items, if none of these assets already exist. If you already have a functional Dockerfile, we recommend using the **Docker: Initialize for Docker debugging** command to scaffold a launch configuration and Docker-related tasks.
+We recommend using the **Containers: Add Docker Files to Workspace...** command to create these items, if none of these assets already exist. If you already have a functional Dockerfile, we recommend using the **Containers: Initialize for container debugging** command to scaffold a launch configuration and container-related tasks.
 
 ## Node.js
 
-More information about debugging Node.js applications within Docker containers can be found at [Debug Node.js within a container](/docs/containers/debug-node.md).
+More information about debugging Node.js applications within containers can be found at [Debug Node.js within a container](/docs/containers/debug-node.md).
 
 Example `launch.json` configuration for debugging a Node.js application:
 
 ```json
 {
-    "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch Node.js in Docker",
+            "name": "Containers: Node.js Launch",
             "type": "docker",
             "request": "launch",
-            "preLaunchTask": "Run Docker Container",
+            "preLaunchTask": "docker-run: debug",
             "platform": "node"
         }
     ]
@@ -48,7 +43,7 @@ Example `launch.json` configuration for debugging a Node.js application:
 
 ## Python
 
-More information about debugging Python applications within Docker containers can be found at [Debug Python within a container](/docs/containers/debug-python.md).
+More information about debugging Python applications within containers can be found at [Debug Python within a container](/docs/containers/debug-python.md).
 
 Example `launch.json` configuration for debugging a Python application:
 
@@ -56,7 +51,7 @@ Example `launch.json` configuration for debugging a Python application:
 {
   "configurations": [
     {
-      "name": "Docker: Python - Django",
+      "name": "Containers: Python - Django",
       "type": "docker",
       "request": "launch",
       "preLaunchTask": "docker-run: debug",
@@ -74,23 +69,28 @@ Example `launch.json` configuration for debugging a Python application:
 }
 ```
 
-## .NET Core
+## .NET
 
-More information about debugging .NET Core applications within Docker containers can be found in [Debug .NET Core within Docker containers](/docs/containers/debug-netcore.md).
+You can choose between two ways of building and debugging your project within containers:
 
-> The previous (Preview) .NET Core Docker debugging support (utilizing `"type": "docker-coreclr"` instead of the current preview's `"type": "docker"`) is being deprecated. You can still find documentation on that support at [Debug .NET Core - Deprecated](https://github.com/microsoft/vscode-docker/wiki/Debug-NetCore-Deprecated).
+- **With .NET SDK**: If you are familiar with `MSBuild` or want to containerize your project without a Dockerfile, this is the recommended choice.
+  >**Note**: This option is only available for .NET SDK 7 and above and uses the `dotnet publish` command to build the image.
 
-Example `launch.json` configuration for debugging a .NET Core application:
+- **With a Dockerfile**: If you prefer customizing your project with a `Dockerfile`, choose this option.
+
+For more details about these two options, refer to [Debug .NET within containers](/docs/containers/debug-netcore.md).
+
+Example `launch.json` configuration for debugging a .NET application using `Dockerfile`:
 
 ```json
 {
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Launch .NET Core in Docker",
+            "name": "Containers: .NET Launch",
             "type": "docker",
             "request": "launch",
-            "preLaunchTask": "Run Docker Container",
+            "preLaunchTask": "Run Container",
             "netCore": {
                 "appProject": "${workspaceFolder}/project.csproj"
             }
@@ -104,12 +104,12 @@ Example `launch.json` configuration for debugging a .NET Core application:
 | Property | Description |
 | --- | --- |
 | `containerName` | Name of the container used for debugging. |
-| `dockerServerReadyAction` | Options for launching a browser to the Docker container. Similar to serverReadyAction, but replaces container ports with host ports. |
+| `dockerServerReadyAction` | Options for launching a browser to the container. Similar to serverReadyAction, but replaces container ports with host ports. |
 | `removeContainerAfterDebug` | Whether to remove the debug container after debugging. |
 | `platform` | The target platform for the application. Can be `netCore` or `node`. |
-| `netCore` | Options for debugging .NET Core projects in Docker. |
-| `node` | Options for debugging Node.js projects in Docker. |
-| `python` | Options for debugging Python projects in Docker. |
+| `netCore` | Options for debugging .NET projects in containers. |
+| `node` | Options for debugging Node.js projects in containers. |
+| `python` | Options for debugging Python projects in containers. |
 
 ### dockerServerReadyAction object properties
 
@@ -135,7 +135,7 @@ Example `launch.json` configuration for debugging a .NET Core application:
 | `timeout` | Optional. When restarting a session, give up after this number of milliseconds. |
 | `stopOnEntry` | Optional. Break immediately when the program launches. |
 | `localRoot` | Optional. VS Code's root directory. | The root workspace folder. |
-| `remoteRoot` | Optional. Node's root directory within the Docker container. | `/usr/src/app` |
+| `remoteRoot` | Optional. Node's root directory within the container. | `/usr/src/app` |
 | `smartStep` | Optional. Try to automatically step over code that doesn't map to source files. |
 | `skipFiles` | Optional. Automatically skip files covered by these glob patterns. |
 | `trace` | Optional. Enable diagnostic output. |
@@ -147,24 +147,25 @@ Example `launch.json` configuration for debugging a .NET Core application:
 | `host` | The host for remote debugging. | |
 | `port` | The port for remote debugging. | `5678` |
 | `pathMappings` | Maps the project path between local machine and remote host.  | |
-| `projectType` | Type of Python app. | |
+| `projectType` | The type of your Python project, `flask` for Flask projects, `django` for Django, `fastapi` for FastAPI, and general for others. The project type will be used to set the port and commands used for debugging. |
 | `justMyCode` | Debug only user-written code. | |
 | `django` | Django debugging. | `false` |
 | `jinja` | Jinja template debugging (such as Flask). | `false` |
 
 ### netCore object properties
 
-> Properties passed in the `netCore` object are generally passed on to the .NET Core debug adaptor, even if not specifically listed below. The complete list of debugger properties is in the [OmniSharp VS Code extension documentation](https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md).
+> Properties passed in the `netCore` object are generally passed on to the .NET debug adaptor, even if not specifically listed below. The complete list of debugger properties is in the [OmniSharp VS Code extension documentation](https://github.com/OmniSharp/omnisharp-vscode/blob/master/debugger-launchjson.md).
 
 | Property | Description |
 | --- | --- |
-| `appProject` | The .NET Core project (.csproj, .fsproj, etc.) to debug. |
+| `appProject` | The .NET project (.csproj, .fsproj, etc.) to debug. |
 
 ## Next steps
 
 Read on to learn more about:
 
-- [Debugging Node.js within Docker containers](/docs/containers/debug-node.md)
-- [Debugging Python within Docker containers](/docs/containers/debug-python.md)
-- [Debugging .NET Core within Docker containers](/docs/containers/debug-netcore.md)
+- [Debugging Node.js within containers](/docs/containers/debug-node.md)
+- [Debugging Python within containers](/docs/containers/debug-python.md)
+- [Debugging .NET within containers](/docs/containers/debug-netcore.md)
 - [Debugging with Docker Compose](/docs/containers/docker-compose.md#debug)
+- [Troubleshooting](/docs/containers/troubleshooting.md)

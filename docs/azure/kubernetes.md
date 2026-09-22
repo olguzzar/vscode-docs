@@ -1,10 +1,6 @@
 ---
-Order: 6
-Area: azure
-TOCTitle: Kubernetes
 ContentId: d0ece2e4-8dd2-4c0d-a773-604542651c9e
-PageTitle: Working with Kubernetes in Visual Studio Code
-DateApproved: 9/10/2020
+DateApproved: 5/4/2022
 MetaDescription: Working with Kubernetes in Visual Studio Code
 ---
 # Working with Kubernetes in VS Code
@@ -15,10 +11,7 @@ This document will walk you through the process of deploying an application to [
 
 You will need to have tools for [Docker](https://docker.com/) and [kubectl](https://kubernetes.io/docs/reference/kubectl/overview/). See the [Install Docker](https://docs.docker.com/install/) documentation for details on setting up Docker on your machine and [Install kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/). Before proceeding further, verify you can run Docker and kubectl commands from the shell.
 
-You can create a local Kubernetes cluster with [minikube](https://kubernetes.io/docs/getting-started-guides/minikube/) or an Azure Kubernetes cluster in [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/azure/aks/). In this tutorial, we will use [Azure Kubernetes Service (AKS)](https://docs.microsoft.com/azure/aks/) and you will need to have your [Azure](https://www.azure.com) account ready for the deployment steps.
-
-In addition, if you want to iteratively run and debug containers directly in Azure Kubernetes Service (AKS), you can install the
-[Azure Dev Spaces](https://marketplace.visualstudio.com/items?itemName=azuredevspaces.azds) extension. There's also an additional [Java Debugger for Azure Dev Spaces](https://marketplace.visualstudio.com/items?itemName=vscjava.vscode-java-debugger-azds) extension, which helps boost remote debugging performance for Java application running in [Azure Dev Spaces](https://docs.microsoft.com/azure/dev-spaces/).
+You can create a local Kubernetes cluster with [minikube](https://kubernetes.io/docs/getting-started-guides/minikube/) or an Azure Kubernetes cluster in [Azure Kubernetes Service (AKS)](https://learn.microsoft.com/azure/aks/). In this tutorial, we will use [Azure Kubernetes Service (AKS)](https://learn.microsoft.com/azure/aks/) and you will need to have your [Azure](https://www.azure.com) account ready for the deployment steps.
 
 ## Install the Kubernetes extension
 
@@ -30,7 +23,7 @@ To install the Kubernetes extension, open the Extensions view (`kb(workbench.vie
 
 ## Containerize and publish the application
 
-You can follow the [Working with Docker](/docs/azure/docker.md) tutorial to build your project, generate a Docker image, and push it to a public or private container registry through the Microsoft [Docker Extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker).
+You can follow the [Working with Docker](/docs/azure/docker.md) tutorial to build your project, generate a Docker image, and push it to a public or private container registry through the Microsoft [Container Tools Extension](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-containers).
 
 ## Create and config a Kubernetes cluster
 
@@ -38,9 +31,9 @@ You can create a Kubernetes cluster running on Azure using the Kubernetes extens
 
 ![Create Kubernetes](images/kubernetes/create-k8s.gif)
 
-**Important**: To create a Kubernetes cluster on Azure, you need to install the [Azure CLI](https://docs.microsoft.com/cli/azure/get-started-with-azure-cli?view=azure-cli-latest) and sign in.
+**Important**: To create a Kubernetes cluster on Azure, you need to install the [Azure CLI](https://learn.microsoft.com/cli/azure/get-started-with-azure-cli) and sign in.
 
-**Tip**: You will encounter an error if you don't have an available RSA key file. Follow [create SSH public-private key](https://docs.microsoft.com/azure/virtual-machines/linux/mac-create-ssh-keys) to create your key before creating an Azure Kubernetes cluster.
+**Tip**: You will encounter an error if you don't have an available RSA key file. Follow [create SSH public-private key](https://learn.microsoft.com/azure/virtual-machines/linux/mac-create-ssh-keys) to create your key before creating an Azure Kubernetes cluster.
 
 ![Error with RSA](images/kubernetes/error-creating-clusters-RSA.png)
 
@@ -72,6 +65,5 @@ Congratulations! Now your app is successfully running in Azure Kubernetes Servic
 
 ## Next steps
 
-* [Azure Dev Spaces](https://docs.microsoft.com/azure/dev-spaces) - Learn more about Azure Dev Spaces, a rapid, iterative Kubernetes development experience for teams.
 * [Azure Extensions](/docs/azure/extensions.md) - The VS Code Marketplace has hundreds of extensions for Azure and the cloud.
 * [Deploying to Azure](/docs/azure/deployment.md) - Learn step-by-step how to deploy your application to Azure.

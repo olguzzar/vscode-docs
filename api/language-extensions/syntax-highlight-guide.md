@@ -1,7 +1,7 @@
 ---
 # DO NOT TOUCH — Managed by doc writer
 ContentId: 2bb06188-d394-4b98-872c-0bf26c8a674d
-DateApproved: 9/10/2020
+DateApproved: 4/22/2026
 
 # Summarize the whole topic in less than 300 characters for SEO purpose
 MetaDescription: A guide to syntax highlighting
@@ -22,7 +22,7 @@ Before diving into the details, a good start is to play with the [scope inspecto
 
 The tokenization of text is about breaking the text into segments and to classify each segment with a token type.
 
-VS Code's tokenization engine is powered by [TextMate grammars][tm-grammars]. TextMate grammars are a structured collection of regular expressions and are written as a plist (XML) or JSON files. VS Code extensions can contribute grammars through the `grammar` contribution point.
+VS Code's tokenization engine is powered by [TextMate grammars][tm-grammars]. TextMate grammars are a structured collection of regular expressions and are written as a plist (XML) or JSON files. VS Code extensions can contribute grammars through the `grammars` contribution point.
 
 The TextMate tokenization engine runs in the same process as the renderer and tokens are updated as the user types. Tokens are used for syntax highlighting, but also to classify the source code into areas of comments, strings, regex.
 
@@ -30,7 +30,7 @@ Starting with release 1.43, VS Code also allows extensions to provide tokenizati
 
 Highlighting based on semantic tokens is considered an addition to the TextMate-based syntax highlighting. Semantic highlighting goes on top of the syntax highlighting. And as language servers can take a while to load and analyze a project, semantic token highlighting may appear after a short delay.
 
-This article focuses on the TextMate-based tokenization. Semantic tokenization and theming are explained in the [Semantic Highlighting Guide](semantic-highlight-guide).
+This article focuses on the TextMate-based tokenization. Semantic tokenization and theming are explained in the [Semantic Highlighting guide](semantic-highlight-guide).
 
 ### TextMate grammars
 
@@ -51,6 +51,23 @@ Scopes nest so that each token is also associated with a list of parent scopes. 
 ![syntax highlighting scopes](images/syntax-highlighting/scopes.png)
 
 Parent scope information is also used for theming. When a theme targets a scope, all tokens with that parent scope will be colorized unless the theme also provides a more specific colorization for their individual scopes.
+
+### Configure bracket matching scopes
+
+Some languages include tokens that should not participate in bracket matching, even though they visually resemble brackets.
+
+There are two properties for configuring bracket matching behavior:
+
+- `balancedBracketScopes`: defines which scopes participate in bracket matching. By default, all scopes are included.
+- `unbalancedBracketScopes`: defines scopes that should be excluded from bracket matching.
+
+```json
+{
+  "unbalancedBracketScopes": [
+    "meta.scope.case-pattern.shell"
+  ]
+}
+```
 
 ### Contributing a basic grammar
 
@@ -143,10 +160,10 @@ x               source.abc
     )           punctuation.paren.close, expression.group, expression.group, source.abc
 )               punctuation.paren.close, expression.group, source.abc
 (               punctuation.paren.open, expression.group, source.abc
-a               keyword.letter, source.abc
+a               keyword.letter, expression.group, source.abc
 ```
 
-Note that text that is not matched by one of the rules, such as the string `xyz`, is included in the current scope. The last parenthesis at the end of the file is not part of the `expression.group` since the `end` rule is not matched.
+Note that text that is not matched by one of the rules, such as the string `xyz`, is included in the current scope. The last parenthesis at the end of the file is part of the `expression.group` even if the `end` rule is not matched, as `end-of-document` was found before the `end` rule was.
 
 ### Embedded languages
 
@@ -180,9 +197,9 @@ To quickly create a new grammar extension, use [VS Code's Yeoman templates](/api
 
 Yeoman will walk you through some basic questions to scaffold the new extension. The important questions for creating a new grammar are:
 
-- `Language Id` - A unique identifier for your language.
-- `Language Name` - A human readable name for your language.
-- `Scope names` - Root TextMate scope name for your grammar
+- `Language id` - A unique identifier for your language.
+- `Language name` - A human readable name for your language.
+- `Scope names` - Root TextMate scope name for your grammar.
 
 ![Filling in the 'new language' questions](images/syntax-highlighting/yo-new-language-questions.png)
 
@@ -327,7 +344,7 @@ TextMate theme rules are defined in `tokenColors` and have the same syntax as re
 
 When evaluating the color and style of a token, the current token's scope is matched against the rule's selector to find the most specific rule for each style property (foreground, bold, italic, underline)
 
-The [Color Theme Guide](/api/extension-guides/color-theme#syntax-colors) describes how to create a color theme. Theming for semantic tokens is explained in the [Semantic Highlighting Guide](semantic-highlight-guide#theming).
+The [Color Theme guide](/api/extension-guides/color-theme#syntax-colors) describes how to create a color theme. Theming for semantic tokens is explained in the [Semantic Highlighting guide](semantic-highlight-guide#theming).
 
 ## Scope inspector
 

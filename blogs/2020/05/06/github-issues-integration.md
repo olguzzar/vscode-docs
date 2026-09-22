@@ -1,5 +1,5 @@
 ---
-Order: 56
+Order: 
 TOCTitle: GitHub Issues Integration
 PageTitle: Working with GitHub Issues in Visual Studio Code
 MetaDescription: Working with GitHub Issues in Visual Studio Code
@@ -33,7 +33,7 @@ Issue context is typically needed in commit messages to reference an issue the c
 
 ![Completion Suggestions](completion-suggestions.gif)
 
-The list of possible issues is configurable with the setting `githubIssues.queries`, so if you work across multiple repositories, you can include queries for those issues. The queries use the [GitHub search syntax](https://help.github.com/articles/understanding-the-search-syntax). The list of users includes the collaborators in the currently open repository.
+The list of possible issues is configurable with the setting `githubIssues.queries`, so if you work across multiple repositories, you can include queries for those issues. The queries use the [GitHub search syntax](https://docs.github.com/search-github/getting-started-with-searching-on-github/understanding-the-search-syntax). The list of users includes the collaborators in the currently open repository.
 
 ![Issue Queries](issue-queries.png)
 
@@ -49,21 +49,21 @@ And from a selection, you can quickly create an issue with a permalink back to t
 
 ## Working on issues
 
-A common workflow is to look at your issues, pick one to work on, create a branch to work in, make some commits, then merge your changes back into master with a pull request. From the new **Issues** view, you can do exactly that.
+A common workflow is to look at your issues, pick one to work on, create a branch to work in, make some commits, then merge your changes back into main with a pull request. From the new **Issues** view, you can do exactly that.
 
 ![Work on an Issue](work-on-issue.gif)
 
-To fit more workflows, there are several options you can configure. If your flow doesn't involve creating a topic branch, you can disable the branch creation with `githubIssues.useBranchForIssues`. If you have a different naming scheme for your branches, you can use the `githubIssues.workingIssueBranch` setting. The issues listed in the **Issues** view can be configured to use a custom query with `githubIssues.queries`.
+To fit more workflows, there are several options you can configure. If your flow doesn't involve creating a topic branch, you can disable the branch creation with `githubIssues.useBranchForIssues`. If you have a different naming scheme for your branches, you can use the `githubIssues.issueBranchTitle` setting. The issues listed in the **Issues** view can be configured to use a custom query with `githubIssues.queries`.
 
 ## Want to learn more?
 
 You can watch this **What every GitHub user should know about VS Code** talk from [GitHub Satellite](https://githubsatellite.com) by Sana Ajani, [@sana_ajani](https://twitter.com/sana_ajani), and Burke Holland, [@burkeholland](https://twitter.com/burkeholland).
 
-<iframe src="https://www.youtube.com/embed/T6sW1Dk9B4E?rel=0&amp;disablekb=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
+<iframe src="https://www.youtube-nocookie.com/embed/T6sW1Dk9B4E?rel=0&amp;disablekb=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen title="What every GitHub user should know about VS Code"></iframe>
 
 ---
 
-You can also read the [Working with GitHub](/docs/editor/github.md) topic, which describes VS Code's GitHub integration in more detail.
+You can also read the [Working with GitHub](/docs/sourcecontrol/github.md) topic, which describes VS Code's GitHub integration in more detail.
 
 ## Going forward
 

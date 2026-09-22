@@ -1,7 +1,7 @@
 ---
 # DO NOT TOUCH — Managed by doc writer
 ContentId: A9D40038-7837-4320-8C2D-E0CA5769AA69
-DateApproved: 9/10/2020
+DateApproved: 4/22/2026
 
 # Summarize the whole topic in less than 300 characters for SEO purpose
 MetaDescription: Visual Studio Code language extensions contribute programming language features. These guidelines present the language features available in Visual Studio Code and explain the API.
@@ -9,7 +9,7 @@ MetaDescription: Visual Studio Code language extensions contribute programming l
 
 # Programmatic Language Features
 
-Programmatic Language Features is a set of smart-editing features powered by the [`vscode.languages.*`](/api/references/vscode-api#languages) API. There are two common ways to provide a dynamic language feature in Visual Studio Code. Let's take [Hover](#hover) as an example:
+Programmatic Language Features is a set of smart-editing features powered by the [`vscode.languages.*`](/api/references/vscode-api#languages) API. There are two common ways to provide a dynamic language feature in Visual Studio Code. Let's take [Hover](#show-hovers) as an example:
 
 ```ts
 vscode.languages.registerHoverProvider('javascript', {
@@ -37,7 +37,7 @@ The process seems more complicated, but it provides two major benefits:
 - The Language Server can be written in any language
 - The Language Server can be reused to provide smart editing features for multiple editors
 
-For a more in-depth guide, head over to the [Language Server Extension Guide](/api/language-extensions/language-server-extension-guide).
+For a more in-depth guide, head over to the [Language Server extension guide](/api/language-extensions/language-server-extension-guide).
 
 ---
 
@@ -53,6 +53,7 @@ This listing includes the following items for each language feature:
 | --------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [`createDiagnosticCollection`](/api/references/vscode-api#languages.createDiagnosticCollection)                                   | [PublishDiagnostics](https://microsoft.github.io/language-server-protocol/specification#textDocument_publishDiagnostics)                                                                                                                 |
 | [`registerCompletionItemProvider`](/api/references/vscode-api#languages.registerCompletionItemProvider)                           | [Completion](https://microsoft.github.io/language-server-protocol/specification#textDocument_completion) & [Completion Resolve](https://microsoft.github.io/language-server-protocol/specification#completionItem_resolve)               |
+[`registerInlineCompletionItemProvider`](/api/references/vscode-api#languages.registerInlineCompletionItemProvider)               |  |
 | [`registerHoverProvider`](/api/references/vscode-api#languages.registerHoverProvider)                                             | [Hover](https://microsoft.github.io/language-server-protocol/specification#textDocument_hover)                                                                                                                                           |
 | [`registerSignatureHelpProvider`](/api/references/vscode-api#languages.registerSignatureHelpProvider)                             | [SignatureHelp](https://microsoft.github.io/language-server-protocol/specification#textDocument_signatureHelp)                                                                                                                           |
 | [`registerDefinitionProvider`](/api/references/vscode-api#languages.registerDefinitionProvider)                                   | [Definition](https://microsoft.github.io/language-server-protocol/specification#textDocument_definition)                                                                                                                                 |
@@ -64,7 +65,7 @@ This listing includes the following items for each language feature:
 | [`registerCodeActionsProvider`](/api/references/vscode-api#languages.registerCodeActionsProvider)                                 | [CodeAction](https://microsoft.github.io/language-server-protocol/specification#textDocument_codeAction)                                                                                                                                 |
 | [`registerCodeLensProvider`](/api/references/vscode-api#languages.registerCodeLensProvider)                                       | [CodeLens](https://microsoft.github.io/language-server-protocol/specification#textDocument_codeLens) & [CodeLens Resolve](https://microsoft.github.io/language-server-protocol/specification#codeLens_resolve)                           |
 | [`registerDocumentLinkProvider`](/api/references/vscode-api#languages.registerDocumentLinkProvider)                               | [DocumentLink](https://microsoft.github.io/language-server-protocol/specification#textDocument_documentLink) & [DocumentLink Resolve](https://microsoft.github.io/language-server-protocol/specification#documentLink_resolve)                   |
-| [`registerColorProvider`](/api/references/vscode-api#languages.registerDocumentColorProvider)                                     | [DocumentColor](https://microsoft.github.io/language-server-protocol/specification#textDocument_documentColor) & [Color Presentation](https://microsoft.github.io/language-server-protocol/specification#textDocument_colorPresentation) |
+| [`registerColorProvider`](/api/references/vscode-api#languages.registerColorProvider)                                     | [DocumentColor](https://microsoft.github.io/language-server-protocol/specification#textDocument_documentColor) & [Color Presentation](https://microsoft.github.io/language-server-protocol/specification#textDocument_colorPresentation) |
 | [`registerDocumentFormattingEditProvider`](/api/references/vscode-api#languages.registerDocumentFormattingEditProvider)           | [Formatting](https://microsoft.github.io/language-server-protocol/specification#textDocument_formatting)                                                                                                                                 |
 | [`registerDocumentRangeFormattingEditProvider`](/api/references/vscode-api#languages.registerDocumentRangeFormattingEditProvider) | [RangeFormatting](https://microsoft.github.io/language-server-protocol/specification#textDocument_rangeFormatting)                                                                                                                       |
 | [`registerOnTypeFormattingEditProvider`](/api/references/vscode-api#languages.registerOnTypeFormattingEditProvider)               | [OnTypeFormatting](https://microsoft.github.io/language-server-protocol/specification#textDocument_onTypeFormatting)                                                                                                                     |
@@ -175,6 +176,39 @@ export function activate(ctx: vscode.ExtensionContext): void {
 > **Advanced**
 >
 > You support resolve providers that compute additional information for completion proposal the user selects. This information is displayed along-side the selected item.
+
+## Show Inline Completions
+
+Inline completions present multi-token suggestions directly in the editor (_ghost text_).
+
+![Inline Completions suggesting code as ghost text while writing code](images/language-support/inline-completions.gif)
+
+#### Direct Implementation
+
+```ts
+vscode.languages.registerInlineCompletionItemProvider({ language: 'javascript' }, {
+    provideInlineCompletionItems(document, position, context, token) {
+        const result: vscode.InlineCompletionList = {
+            items: [],
+            commands: [],
+        };
+
+        ...
+
+        return result;
+    }
+});
+```
+
+You can explore a complete example in the [inline completions sample extension](https://github.com/microsoft/vscode-extension-samples/blob/main/inline-completions).
+
+> **Basic**
+>
+> Return inline completions only for a well-known list of patterns based on the current line content, for specific languages.
+
+> **Advanced**
+>
+> Return inline completions based on content in the whole document or workspace and more complex patterns.
 
 ## Show Hovers
 
@@ -383,7 +417,7 @@ export function activate(ctx: vscode.ExtensionContext): void {
 
 Allow the user to see all occurrences of a symbol in the open editor.
 
-![Select a symbol to highlight all occurences](images/language-support/document-highlights.gif)
+![Select a symbol to highlight all occurrences](images/language-support/document-highlights.gif)
 
 #### Language Server Protocol
 
@@ -554,11 +588,11 @@ In addition, your language server needs to respond to the `textDocument/codeActi
 #### Direct Implementation
 
 ```typescript
-class GoCodeActionProvider implements vscode.CodeActionProvider {
+class GoCodeActionProvider implements vscode.CodeActionProvider<vscode.CodeAction> {
     public provideCodeActions(
-        document: vscode.TextDocument, range: vscode.Range,
+        document: vscode.TextDocument, range: vscode.Range | vscode.Selection,
         context: vscode.CodeActionContext, token: vscode.CancellationToken):
-        Thenable<vscode.Command[]> {
+        Thenable<vscode.CodeAction[]> {
     ...
     }
 }
@@ -717,8 +751,9 @@ In addition, your language server needs to respond to the `textDocument/formatti
 
 ```typescript
 class GoDocumentFormatter implements vscode.DocumentFormattingEditProvider {
-    public formatDocument(document: vscode.TextDocument):
-        Thenable<vscode.TextEdit[]> {
+    provideDocumentFormattingEdits(
+        document: vscode.TextDocument, options: vscode.FormattingOptions, token: vscode.CancellationToken)
+        : vscode.ProviderResult<vscode.TextEdit[]> {
     ...
     }
 }
@@ -769,7 +804,7 @@ class GoDocumentRangeFormatter implements vscode.DocumentRangeFormattingEditProv
     public provideDocumentRangeFormattingEdits(
         document: vscode.TextDocument, range: vscode.Range,
         options: vscode.FormattingOptions, token: vscode.CancellationToken):
-        Thenable<vscode.TextEdit[]>;
+        vscode.ProviderResult<vscode.TextEdit[]> {
     ...
     }
 }
@@ -795,7 +830,7 @@ export function activate(ctx: vscode.ExtensionContext): void {
 
 Provide the user with support for formatting text as they type.
 
-**Note**: The user [setting](/docs/getstarted/settings) `editor.formatOnType` controls whether source code gets formatted or not as the user types.
+**Note**: The user [setting](/docs/configure/settings) `editor.formatOnType` controls whether source code gets formatted or not as the user types.
 
 ![Visual indicators for formatting as code is typed](images/language-support/format-on-type.gif)
 
@@ -825,7 +860,7 @@ class GoOnTypingFormatter implements vscode.OnTypeFormattingEditProvider{
     public provideOnTypeFormattingEdits(
         document: vscode.TextDocument, position: vscode.Position,
         ch: string, options: vscode.FormattingOptions, token: vscode.CancellationToken):
-        Thenable<vscode.TextEdit[]>;
+        vscode.ProviderResult<vscode.TextEdit[]> {
     ...
     }
 }
