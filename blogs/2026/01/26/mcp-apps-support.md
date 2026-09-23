@@ -3,7 +3,7 @@ Order: 125
 TOCTitle: MCP Apps Support
 PageTitle: "Giving Agents a Visual Voice: MCP Apps Support in VS Code"
 MetaDescription: VS Code now supports MCP Apps, enabling AI agents to display interactive UIs for richer developer workflows.
-MetaSocialImage: mcp-apps-list-sort.png
+MetaSocialImage: mcp-apps-list-sort.webp
 Date: 2026-01-26
 Author: Harald Kirschner, Connor Peet
 ---
@@ -12,7 +12,7 @@ Author: Harald Kirschner, Connor Peet
 
 January 26, 2026 by [Harald Kirschner](https://github.com/digitarald) and [Connor Peet](https://github.com/connor4312)
 
-AI coding agents have become remarkably capable. Out of the box, they search your codebase, edit files, run terminal commands, and respond to compile errors. Add [MCP servers](https://code.visualstudio.com/docs/copilot/customization/mcp-servers), and they can query databases, browse the web with Playwright, summarize GitHub issues, and connect to your cloud platforms. Models can even process images—you can paste a screenshot to debug a layout issue, or have Playwright capture browser state for verification.
+AI coding agents have become remarkably capable. Out of the box, they search your codebase, edit files, run terminal commands, and respond to compile errors. Add [MCP servers](https://code.visualstudio.com/docs/agent-customization/mcp-servers), and they can query databases, browse the web with Playwright, summarize GitHub issues, and connect to your cloud platforms. Models can even process images—you can paste a screenshot to debug a layout issue, or have Playwright capture browser state for verification.
 
 Agents format tables, structure data, and render ASCII diagrams. But none of this is interactive. When you need to reorder a list, confirm a destructive action with specifics, or explore a visualization, you're back to describing things in sentences.
 
@@ -30,7 +30,7 @@ We've built a few [demos](https://github.com/digitarald/mcp-apps-playground) to 
 
 **With MCP Apps:** Agent displays a drag-and-drop interface alongside its suggested order. You reorder items visually, or select "Ask AI to Sort" to let the agent apply its reasoning.
 
-![Screenshot showing an interactive task sorting UI with drag-and-drop in the VS Code agent panel.](mcp-apps-list-sort.png)
+![Screenshot showing an interactive task sorting UI with drag-and-drop in the VS Code agent panel.](mcp-apps-list-sort.webp)
 
 ### Performance Profiler Visualization
 
@@ -38,7 +38,7 @@ We've built a few [demos](https://github.com/digitarald/mcp-apps-playground) to 
 
 **With MCP Apps:** Agent renders an interactive flame graph. You drill into call stacks, hover for timing details, and confirm or reject the agent's analysis with your own domain knowledge.
 
-![Screenshot showing an interactive flame graph visualization rendered by an MCP App.](mcp-apps-flame-graph.png)
+![Screenshot showing an interactive flame graph visualization rendered by an MCP App.](mcp-apps-flame-graph.webp)
 
 ### Feature Flag Selector
 
@@ -46,19 +46,19 @@ We've built a few [demos](https://github.com/digitarald/mcp-apps-playground) to 
 
 **With MCP Apps:** Agent displays a searchable flag picker with live environment status. You select flags, switch between prod/staging/dev views, and generate SDK code—all in one interaction.
 
-![Screenshot showing a feature flag selector with environment tabs in the agent panel.](mcp-apps-feature-flags.png)
+![Screenshot showing a feature flag selector with environment tabs in the agent panel.](mcp-apps-feature-flags.webp)
 
 ## Partner Spotlight: Storybook
 
 [Storybook](https://storybook.js.org) has [added MCP Apps support](https://github.com/storybookjs/mcp/pull/134) to their open source MCP server. Simply ask an agent to *"build a login form using our design system"* instead of describing the desired result in extensive detail, and the agent renders an interactive component preview directly in VS Code.
 
-<iframe src="https://www.youtube-nocookie.com/embed/fbNH6_jdwQU?rel=0&amp;disablekb=0&amp;modestbranding=1&amp;showinfo=0" frameborder="0" allowfullscreen title="Storybook MCP Apps demo"></iframe>
+[![Watch Storybook MCP Apps demo on YouTube (opens in new tab).](youtube-fbNH6_jdwQU.jpg)](https://www.youtube.com/watch?v=fbNH6_jdwQU)
 
 > "We've been working with the VS Code team on MCP Apps and we're excited about the results. Users can now preview Storybook stories directly in the agent chat, eliminating the need to navigate between the chat and their Storybook to review changes." – Jeppe Reinhold (Storybook core contributor, Chromatic)
 
 ## A Natural Fit for VS Code
 
-VS Code has always been more than a text editor. Extensions bring UI and interaction into the editor through webview panels, custom editors, and sidebar views. Jupyter notebooks showed that mixing code with rich output transforms workflows. [GitHub Copilot agents](https://code.visualstudio.com/docs/copilot/agents/overview) gave AI the ability to work autonomously in your workspace.
+VS Code has always been more than a text editor. Extensions bring UI and interaction into the editor through webview panels, custom editors, and sidebar views. Jupyter notebooks showed that mixing code with rich output transforms workflows. [GitHub Copilot agents](https://code.visualstudio.com/docs/agents/overview) gave AI the ability to work autonomously in your workspace.
 
 MCP Apps is the next layer: giving agents a visual voice to communicate back. You see what's happening, make choices with confidence, and stay in control.
 
@@ -68,8 +68,8 @@ If you're building MCP servers, add MCP Apps to make them more interactive. VS C
 
 - [MCP Apps demo repository](https://github.com/digitarald/mcp-apps-playground)
 - [MCP Apps SDK and examples](https://github.com/modelcontextprotocol/ext-apps/)
-- [VS Code MCP documentation](https://code.visualstudio.com/docs/copilot/customization/mcp-servers)
-- [MCP server development guide](https://code.visualstudio.com/docs/copilot/guides/mcp-developer-guide)
+- [VS Code MCP documentation](https://code.visualstudio.com/docs/agent-customization/mcp-servers)
+- [MCP server development guide](https://code.visualstudio.com/docs/agents/guides/mcp-developer-guide)
 - [MCP Apps announcement](https://blog.modelcontextprotocol.io/posts/2026-01-26-mcp-apps/)
 
 Try building your first MCP App and share what you create with the community. Sometimes showing is better than telling—now your agents can do both.

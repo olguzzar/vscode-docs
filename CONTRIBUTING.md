@@ -16,6 +16,8 @@ Thank you for your interest in VS Code documentation!
 * [Authoring Tools](#authoring-tools)
 * [How to use Markdown to format your topic](#how-to-use-markdown-to-format-your-topic)
 * [Topic Metadata](#topic-metadata)
+* [Experimental and preview features](#experimental-and-preview-features)
+* [Learn courses](#learn-courses)
 * [Formatting](#formatting)
 
 > [!IMPORTANT]
@@ -141,12 +143,14 @@ npm run serve
 
 This starts a local server (default `http://localhost:3000`) with:
 
-* Sidebar navigation generated from `docs/toc.json` and `api/toc.json`
+* Sidebar navigation generated from the Docs, Extension API, and Learn table of contents files
+* Reusable data variables validated and rendered in article content and navigation
+* Tabbed content validated and rendered with synchronized tab selections
 * Top navbar to switch between Docs, Extension API, Blogs, and Release Notes
 * Full-text search across all content
 
 > [!NOTE]
-> The local preview is **not an exact copy of the production site** at code.visualstudio.com. Custom syntax like `kb(command.id)` keybinding macros, interactive `prompt` code blocks, and some layout details will not render as they do on the production site. Use the local preview to verify content, navigation, and cross-links.
+> The local preview is **not an exact copy of the production site** at code.visualstudio.com. Custom syntax like `kb(command.id)` keybinding macros, interactive `prompt` code blocks, generated content such as the VS Code API reference, and some layout details will not render as they do on the production site. Use the local preview to verify content, navigation, and cross-links.
 
 ### Validate your Markdown
 
@@ -187,7 +191,7 @@ This repository contains the following top-level folders:
 * \build - content for the documentation build process, such as the keybinding mappings and sitemap
 * \docs - content for the documentation at <https://code.visualstudio.com/docs> - the content in this folder follows the organization of the documentation table of contents
 * \images - images used in the documentation
-* \learn - (deprecated) content for the education content at <https://code.visualstudio.com/learn>
+* \learn - content for the training courses at <https://code.visualstudio.com/learn>
 * \release-notes - content for the release notes at <https://code.visualstudio.com/updates>
 * \remote - content for the remote development tools documentation at <https://code.visualstudio.com/docs/remote>
 * \remote-release-notes - content for the remote development tools release notes
@@ -233,14 +237,51 @@ The page title is taken from the first H1 heading in the topic.
 * **MetaSocialImage** - Optional. Used for og:image in page header for sharing on social media. Should be 1024 x 512 .png.
 * **MetaTags** - Optional. Further tags for this page again for search.
 * **Keywords** - Optional. A list of keywords relevant to this topic to help with search.
+* **FeatureStatus** - Optional. The feature ID from `/build/feature-lifecycle.json` when the whole page documents an experimental or preview feature.
+
+## Experimental and preview features
+
+The `/build/feature-lifecycle.json` registry is the source of truth for non-stable feature states in the documentation. Each entry has a lowercase kebab-case ID, display label, and `experimental` or `preview` state. Do not add stable features to the registry.
+
+The website can build without the registry so infrastructure and content changes can be deployed independently. When the file is absent, the build treats it as an empty registry and renders no lifecycle status UI. An existing registry must still be valid.
+
+To mark a whole page, add its feature ID to the topic metadata:
+
+```yaml
+FeatureStatus: agent-artifacts
+```
+
+Keep the H1 free of manually authored `(Preview)` or `(Experimental)` text. The website build adds a consistent status treatment after the H1.
+
+To mark a feature within a page, add an empty marker directly after the heading or content that introduces it. Put the macro on a line by itself immediately after the heading or introductory content for the feature:
+
+```html
+`feature(integrated-browser-remote)`
+```
+
+To include a beaker icon inline in text to mark a feature use the following syntax:
+
+```html
+Full page screenshots `feature(integrated-browser-full-page-screenshot)` capture the entire scrollable page.
+```
+
+Keep enablement steps, limitations, and other feature-specific guidance in the authored content. The generated treatment only describes the lifecycle state.
+
+When a feature becomes stable:
+
+1. Remove its entry from `/build/feature-lifecycle.json`.
+2. Remove all matching `FeatureStatus` metadata and inline markers.
+3. Update prose that describes preview or experimental limitations.
+
+The registry is the authoritative switch. If a valid page or inline reference is accidentally left behind after its entry is removed, the website build omits the status treatment and renders the surrounding content normally. The build reports unresolved references as non-blocking audit output so stale source can be cleaned up.
 
 ## Table of contents
 
-The table of contents (TOC) is defined in the `/docs/toc.yml` file. The TOC is used to generate the left rail navigation for the documentation. If a topic is not listed in the `/docs/toc.yml` file, it will not be included in the left rail navigation.
+The table of contents (TOC) is defined in the `/docs/toc.json` file. The TOC is used to generate the left rail navigation for the documentation. If a topic is not listed in the `/docs/toc.json` file, it will not be included in the left rail navigation.
 
-To add a new topic to the TOC, add a new entry in the `topics` attribute of the appropriate section in the `/docs/toc.yml` file. The TOC is organized into sections, each with a name and an area. The area is used to group related topics together.
+To add a new topic to the TOC, add a new entry in the `topics` attribute of the appropriate section in the `/docs/toc.json` file. The TOC is organized into sections, each with a name and an area. The area is used to group related topics together.
 
-The order in which the topics are listed in the `/docs/toc.yml` file determines the order in which they are displayed in the left rail navigation.
+The order in which the topics are listed in the `/docs/toc.json` file determines the order in which they are displayed in the left rail navigation.
 
 Each topic in the TOC has two attributes:
 
@@ -249,12 +290,12 @@ Each topic in the TOC has two attributes:
 
 The following example shows a `Getting Started` section that has two topics.
 
-```yaml
+```json
     {
       "name": "Getting Started",
       "area": "getstarted",
       "topics": [
-        ["VS Code Tutorial", "/docs/getstarted/getting-started"],
+        ["VS Code Tutorial", "/docs/editing/getting-started/editor-tutorial"],
         ["Copilot Quickstart", "/docs/getstarted/copilot-quickstart"]
       ]
     },
@@ -268,26 +309,114 @@ To create a subsection within a section, add a subsection entry to the `topics` 
 
 The following example shows a `Guides` subsection with two topics, within the `GitHub Copilot` section.
 
-```yaml
+```json
     {
       "name": "GitHub Copilot",
       "area": "copilot",
       "topics": [
-        ["Overview", "/docs/copilot/overview"],
-        ["Setup", "/docs/copilot/setup"],
+        ["Overview", "/docs/agent-native/overview"],
+        ["Setup", "/docs/setup/copilot"],
         ["", "", {
           "name": "Guides",
           "area": "copilot/guides",
           "topics": [
-            ["Test with Copilot", "/docs/copilot/guides/test-with-copilot"],
-            ["Debug with Copilot", "/docs/copilot/guides/debug-with-copilot"]
+            ["Test with Copilot", "/docs/agents/guides/test-code-with-ai"],
+            ["Fix an API Bug", "/docs/agents/guides/fix-a-bug-with-agents"]
           ]
         }
         ],
-        ["FAQ", "/docs/copilot/faq"]
+        ["FAQ", "/docs/agents/agent-troubleshooting/faq"]
       ]
     },
 ```
+
+## Learn courses
+
+The [Learn](https://code.visualstudio.com/learn) area hosts structured training courses. A **course** is a group of related articles that appears as a card on the Learn home page and as an expandable section in the Learn navigation.
+
+Learn content lives in the `/learn` folder, separate from `/docs`, and has its own table of contents at `/learn/toc.json`:
+
+```
+/learn
+├── toc.json                 # Defines the courses, their home page cards, and navigation
+├── images/
+│   └── shared/              # Images shared across courses (for example, social images)
+└── <course-area>/           # One folder per course
+    ├── <article>.md         # One Markdown file per topic
+    └── images/              # Images for this course's articles
+```
+
+To add a new course, follow these steps.
+
+### Step 1: Create the course folder and articles
+
+1. Create a folder for the course under `/learn`, using a lowercase, dash-separated name for the `area` (for example, `/learn/testing`).
+2. Add a Markdown file for each topic. Learn articles follow the same [Formatting](#formatting) and [Topic Metadata](#topic-metadata) conventions as the rest of the documentation, and the page title comes from the first H1 heading.
+
+   ```markdown
+   ---
+   ContentId: <GUID>
+   DateApproved: 03/30/2026
+   MetaDescription: A one-sentence description of the article, used for search.
+   MetaSocialImage: ../images/shared/testing-social.png
+   ---
+   # Introduction to testing with agents
+
+   Article content...
+   ```
+
+### Step 2: Add images
+
+Store article images in an `images` subfolder inside the course folder (for example, `/learn/testing/images/`) and reference them with relative paths:
+
+```markdown
+![Test Explorer showing passing tests](../images/testing/test-explorer.png)
+```
+
+During the build, these images are published under `/assets/learn/<course-area>/` with the `images/` segment removed. For example, `/learn/testing/images/test-explorer.png` is served at `/assets/learn/testing/test-explorer.png`.
+
+> [!IMPORTANT]
+> Make sure you have Git LFS enabled before committing images! See the [Git LFS setup](#git-lfs-setup) section.
+
+### Step 3: Register the course in `toc.json`
+
+Add an entry to `/learn/toc.json` to make the course appear on the Learn home page and in the navigation. Each course entry has the following attributes:
+
+* `name` - the course title shown on the home page card and in the navigation.
+* `area` - the course folder name. This must match the folder you created in Step 1.
+* `description` - a short summary shown on the home page card.
+* `topics` - an ordered list of `[title, link]` pairs, one per article. The `link` is the site-relative path to the article without the `.md` extension. The order sets the navigation order, and the first topic is used as the card's link.
+
+```json
+{
+  "name": "Testing with agents",
+  "area": "testing",
+  "description": "Learn how to write, run, and debug tests with AI agents in VS Code.",
+  "topics": [
+    ["Introduction to testing with agents", "/learn/testing/introduction"],
+    ["Generate tests with agent mode", "/learn/testing/generate-tests"]
+  ]
+}
+```
+
+### Step 4 (optional): Add a home page card image
+
+To show an image on the course's home page card, add the image to the course's `images` folder (see Step 2) and reference its published path from the course entry in `toc.json`:
+
+* `image` - a single card image used for all color themes.
+* `imageLight` and `imageDark` - theme-specific images. When only these are set, the dark image is used as the default.
+
+```json
+{
+  "name": "Testing with agents",
+  "area": "testing",
+  "description": "Learn how to write, run, and debug tests with AI agents in VS Code.",
+  "image": "/assets/learn/testing/testing-card.png",
+  "topics": [ ... ]
+}
+```
+
+Card images are decorative and don't need alt text.
 
 ## Product name
 
@@ -524,6 +653,50 @@ There are two types of prompt code blocks:
   ````
 
 Use prompt code blocks when you want readers to easily try the prompt in VS Code Chat. The prompt text should be complete and actionable.
+
+### Tabs
+
+Use tabs to present parallel variants of the same content — for example, instructions that differ between two views, tools, or languages. Readers see only the variant they pick, and their selection is remembered across the page (and shared between switchers that use the same `id`).
+
+Tabs use a Markdoc-style syntax that is processed at build time:
+
+```markdown
+{% tabs id="chat-surface" %}
+
+{% tab label="Agents window" %}
+
+Content for the **Agents window** variant. You can use any Markdown here, including
+lists, code blocks, images, and callouts.
+
+{% /tab %}
+
+{% tab label="Chat view" %}
+
+Content for the **Chat view** variant.
+
+{% /tab %}
+
+{% /tabs %}
+```
+
+The block has a few rules:
+
+* `{% tabs %}` requires an `id` that is unique per page. The `id` is used as the localStorage key and the URL query parameter for persistence, so use a stable, slug-cased value.
+* Each `{% tab %}` requires a `label`. The label becomes the tab button text, and a slugified version of it is used as the persisted value (so renaming a label changes the URL/localStorage key).
+* `{% tabs %}`, `{% tab %}`, `{% /tab %}`, and `{% /tabs %}` markers must each start at the beginning of a line.
+* Place a blank line before and after the inner content so markdown-it renders it as Markdown rather than as an HTML block.
+* Nested `{% tabs %}` blocks are not supported.
+
+You can place multiple `{% tabs %}` blocks on the same page. Blocks that share the same `id` stay in sync — selecting a tab in one switches all of them. This is useful when the same set of variants applies to several sections of an article.
+
+To opt out of processing for a single marker — for example, when documenting the syntax itself — escape the opening `{` with a backslash: `\{% tabs id="..." %}`.
+
+The selected tab is preserved via:
+
+* A URL query parameter (`?<id>=<slugified-label>`), so links can deep-link to a specific variant.
+* `localStorage`, so the choice is remembered when the reader returns to the page.
+
+Use tabs sparingly. They are best for genuinely parallel content where readers only need one path; do not use them to hide important information that all readers need to see.
 
 ## Gotchas
 

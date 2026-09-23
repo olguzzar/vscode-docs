@@ -1,12 +1,12 @@
 ---
 ContentId: 9a8f0a40-f4f9-4d2b-b7b2-c1d54ef4c006
-DateApproved: 03/30/2026
+DateApproved: 9/16/2026
 MetaDescription: Build a URL shortener with agent mode in VS Code using FastAPI, sqlite3, planning, autopilot, review tools, and forking.
 MetaSocialImage: ../images/shared/agent-first-development-social.png
 ---
 # Build your first app with agent mode
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/hmfldW7dmgw?si=v9OJQDJZPMkGf-jt" title="Video for building your first app with agent mode." frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![Watch Video for building your first app with agent mode on YouTube (opens in new tab).](images/build-your-first-app-with-agent-mode/youtube-hmfldW7dmgw.jpg)](https://www.youtube.com/watch?v=hmfldW7dmgw)
 
 This guide is a capstone walkthrough that ties together everything covered in the series. You will build a URL shortener from scratch using agent-first development, FastAPI for the API, Python `sqlite3` for the database, a simple HTML frontend, and the base62 encoder from earlier in the series.
 
@@ -162,12 +162,12 @@ Watch for future sections covering MCP, custom instructions and skills, and more
 
 ## Learn more
 
-* [Agents tutorial in VS Code](https://code.visualstudio.com/docs/copilot/agents/agents-tutorial)
-* [Planning with agents in VS Code](https://code.visualstudio.com/docs/copilot/agents/planning)
-* [Reviewing AI-generated code edits in VS Code](https://code.visualstudio.com/docs/copilot/chat/review-code-edits)
-* [Checkpoints and editing requests in VS Code](https://code.visualstudio.com/docs/copilot/chat/chat-checkpoints)
-* [Agent Logs and Chat Debug view](https://code.visualstudio.com/docs/copilot/chat/chat-debug-view)
+* [Choose and use an agent harness in VS Code](https://code.visualstudio.com/docs/agents/run/agent-harnesses)
+* [Planning with agents in VS Code](https://code.visualstudio.com/docs/agents/run/planning)
+* [Reviewing AI-generated code edits in VS Code](https://code.visualstudio.com/docs/agents/run/review-code-edits)
+* [Checkpoints and editing requests in VS Code](https://code.visualstudio.com/docs/agents/run/review-code-edits#_edit-requests-and-restore-checkpoints)
+* [Agent Logs and Chat Debug view](https://code.visualstudio.com/docs/chat/chat-debug-view)
 * [FastAPI](https://fastapi.tiangolo.com/)
 * [Python sqlite3](https://docs.python.org/3/library/sqlite3.html)
 * [Model Context Protocol](https://modelcontextprotocol.io/introduction)
-* [Custom instructions and agents for GitHub Copilot](https://code.visualstudio.com/docs/copilot/customization/overview)
+* [Custom instructions and agents for GitHub Copilot](https://code.visualstudio.com/docs/agent-customization/overview)

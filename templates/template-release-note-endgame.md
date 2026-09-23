@@ -1,6 +1,6 @@
 ---
 Order: <sequence number>
-TOCTitle: 1.<release number>
+TOCTitle: "1.<release number>"
 PageTitle: Visual Studio Code 1.<release number>
 MetaDescription: Learn what's new in Visual Studio Code 1.<release number>
 MetaSocialImage: 1_<release number>/release-highlights.webp
@@ -11,7 +11,7 @@ ProductEdition: Stable
 ---
 # Visual Studio Code 1.<release number>
 
-Follow us on [LinkedIn](https://www.linkedin.com/showcase/vs-code), [X](https://go.microsoft.com/fwlink/?LinkID=533687), [Bluesky](https://bsky.app/profile/vscode.dev) | <!-- %IF INSIDERS % Follow Insiders Changelog on [X](https://x.com/VSCodeChangelog) or [Bluesky](https://bsky.app/profile/vscodechangelog.bsky.social) | %ENDIF % --> <!-- %IF IN_PRODUCT % [View online](https://code.visualstudio.com/updates)&nbsp;|&nbsp;%ENDIF % -->
+Follow us on [LinkedIn](https://www.linkedin.com/showcase/vs-code), [X](https://go.microsoft.com/fwlink/?LinkID=533687), [Bluesky](https://bsky.app/profile/vscode.dev), [Instagram](https://www.instagram.com/vscode.ig) <!-- %IF INSIDERS % | Follow Insiders Changelog on [X](https://x.com/VSCodeChangelog) or [Bluesky](https://bsky.app/profile/vscodechangelog.bsky.social) %ENDIF % --> <!-- %IF IN_PRODUCT % | [View online](https://code.visualstudio.com/updates)%ENDIF % -->
 
 ---
 

@@ -1,10 +1,10 @@
 ---
 # DO NOT TOUCH — Managed by doc writer
 ContentId: 200bf922-3684-45ee-a8dd-43191d6b3f8b
-DateApproved: 4/15/2026
+DateApproved: 9/16/2026
 
-VSCodeCommitHash: b6a47e94e326b5c209d118cf0f994d6065585705
-VSCodeVersion: 1.109.3
+VSCodeCommitHash: db46a82c4f4a77c4853867dcdba5057229b5d099
+VSCodeVersion: 1.136.0
 
 # Summarize the whole topic in less than 300 characters for SEO purpose
 MetaDescription: Enterprise policies in Visual Studio Code enable organizations to centrally manage settings for their development teams. This reference details the available policies and how to implement them.
@@ -32,48 +32,20 @@ Starting from VS Code version 1.69, each release ships with a `policies` directo
 
 You can get the ADMX and ADML files from either an existing installation or by downloading and extracting the VS Code zip archive. Follow these steps to obtain the files:
 
-1. Download the [VS Code zip archive](https://code.visualstudio.com/docs/?dv=winzip) for your version of VS Code.
+1. Download the [VS Code zip archive](/download) for your version of VS Code.
 1. Extract the zip file to a temporary location.
 1. Navigate to the `policies` folder in the extracted files. This folder contains the ADMX template files (for example, `vscode.admx`) and a `locales` subfolder with ADML files for different languages.
 
 ### Step 2: Configure policy values
 
-Edit the policy values according to your requirements:
+After installing the ADMX and ADML files, configure policy values through your management tool:
 
-**String policies** - policies that accept text values or JSON strings:
+- For Active Directory environments, use the Group Policy Editor (`gpedit.msc`) and navigate to **Computer Configuration** > **Administrative Templates** > **Visual Studio Code**.
+- For cloud-managed devices, use your MDM solution (for example, Microsoft Intune) to configure the imported VS Code administrative template policies.
+- Open each policy, set it to **Enabled** or **Disabled**, and provide any required value in the policy UI.
+- Leave policies in the **Not Configured** state if you don't want to enforce them.
 
-```xml
-<!-- Example: Allow extensions from specific publishers -->
-<key>AllowedExtensions</key>
-<string>{"microsoft": true, "github": true}</string>
-
-<!-- Example: Set update mode to a specific value -->
-<key>UpdateMode</key>
-<string>start</string>
-```
-
-> [!IMPORTANT]
-> If there's a syntax error in the policy value, the setting will not be applied. You can check the Window log in VS Code for errors (press `kb(workbench.action.showCommands)` and enter **Show Window Log**).
-
-**Boolean policies** - policies that accept true/false values:
-
-```xml
-<!-- Example: Enable user feedback -->
-<key>EnableFeedback</key>
-<true/>
-
-<!-- Example: Disable telemetry -->
-<key>EnableTelemetry</key>
-<false/>
-```
-
-**Remove unwanted policies** - delete both the key and value for any policy you don't want to enforce:
-
-```xml
-<!-- To not enforce an update mode policy, remove these lines: -->
-<key>UpdateMode</key>
-<string>start</string>
-```
+Configured policy values are written to the registry under `Software\Policies\Microsoft\VSCode`.
 
 Refer to the [policy reference](#vs-code-enterprise-policy-reference) below for details on each policy's accepted values and behavior.
 
@@ -156,40 +128,21 @@ Starting from VS Code version 1.99, each release ships with a sample `.mobilecon
 1. Open the copied file in a text editor (for example, TextEdit, VS Code, or any XML editor).
 1. Edit the policy values according to your requirements:
 
-    **String policies** - policies that accept text values or JSON strings:
+    Example `policy.json` configuration:
 
-    ```xml
-    <!-- Example: Allow extensions from specific publishers -->
-    <key>AllowedExtensions</key>
-    <string>{"microsoft": true, "github": true}</string>
-
-    <!-- Example: Set update mode to a specific value -->
-    <key>UpdateMode</key>
-    <string>start</string>
+    ```json
+    {
+      "AllowedExtensions": {"microsoft": true, "github": true},
+      "UpdateMode": "start",
+      "EnableFeedback": true,
+      "EnableTelemetry": false
+    }
     ```
 
     > [!IMPORTANT]
     > If there's a syntax error in the policy value, the setting will not be applied. You can check the Window log in VS Code for errors (press `kb(workbench.action.showCommands)` and enter **Show Window Log**).
 
-    **Boolean policies** - policies that accept true/false values:
-
-    ```xml
-    <!-- Example: Enable user feedback -->
-    <key>EnableFeedback</key>
-    <true/>
-
-    <!-- Example: Disable telemetry -->
-    <key>EnableTelemetry</key>
-    <false/>
-    ```
-
-    **Remove unwanted policies** - delete both the key and value for any policy you don't want to enforce:
-
-    ```xml
-    <!-- To not enforce an update mode policy, remove these lines: -->
-    <key>UpdateMode</key>
-    <string>start</string>
-    ```
+    **Remove unwanted policies** - remove the corresponding JSON property for any policy you don't want to enforce.
 
 Refer to the [policy reference](#vs-code-enterprise-policy-reference) for details on each policy's accepted values and behavior.
 
@@ -276,40 +229,21 @@ Starting from VS Code version 1.106, each release ships with a sample `.policy.j
 
 1. Edit the policy values according to your requirements:
 
-    **String policies** - policies that accept text values or JSON strings:
+    Example `policy.json` configuration:
 
-    ```xml
-    <!-- Example: Allow extensions from specific publishers -->
-    <key>AllowedExtensions</key>
-    <string>{"microsoft": true, "github": true}</string>
-
-    <!-- Example: Set update mode to a specific value -->
-    <key>UpdateMode</key>
-    <string>start</string>
+    ```json
+    {
+      "AllowedExtensions": {"microsoft": true, "github": true},
+      "UpdateMode": "start",
+      "EnableFeedback": true,
+      "EnableTelemetry": false
+    }
     ```
 
     > [!IMPORTANT]
     > If there's a syntax error in the policy value, the setting will not be applied. You can check the Window log in VS Code for errors (press `kb(workbench.action.showCommands)` and enter **Show Window Log**).
 
-    **Boolean policies** - policies that accept true/false values:
-
-    ```xml
-    <!-- Example: Enable user feedback -->
-    <key>EnableFeedback</key>
-    <true/>
-
-    <!-- Example: Disable telemetry -->
-    <key>EnableTelemetry</key>
-    <false/>
-    ```
-
-    **Remove unwanted policies** - delete both the key and value for any policy you don't want to enforce:
-
-    ```xml
-    <!-- To not enforce an update mode policy, remove these lines: -->
-    <key>UpdateMode</key>
-    <string>start</string>
-    ```
+    **Remove unwanted policies** - remove the corresponding JSON property for any policy you don't want to enforce.
 
 Refer to the [policy reference](#vs-code-enterprise-policy-reference) for details on each policy's accepted values and behavior.
 
@@ -369,25 +303,86 @@ To remove all policies and revert to default settings, delete the `/etc/vscode/p
 
 </details>
 
+## Verify policy enforcement
+
+After you deploy enterprise policies to a device, you can confirm that VS Code is reading and enforcing them with the **Developer: Policy Diagnostics** command. The command opens a new untitled Markdown document with a report of the current policy state on the device. It works the same way on Windows, macOS, and Linux.
+
+The report includes the following sections:
+
+* **System Information**: VS Code product name, version, and commit, useful for matching the report to a specific build.
+* **Account Information**: details of the default account that is signed in, including the raw account-level policy data returned by the account provider.
+* **Account Policy Gate**: state of the [approved GitHub organizations gate](/docs/enterprise/ai-settings.md#restrict-ai-features-to-approved-github-organizations) that controls AI features. Possible states are `inactive`, `satisfied`, and `restricted`. When the state is `restricted`, the report also lists a reason such as `noAccount`, `wrongProvider`, `orgNotApproved`, or `policyNotResolved`.
+* **Policy-Controlled Settings**: two tables that list the policy state for each registered setting:
+    * **Applied Policy**: settings that are currently overridden by a policy, with the setting key, policy name, policy source, default value, current value, and the value enforced by the policy.
+    * **Non-applied Policy**: registered policies that are not currently being enforced. Use this table to detect deployment errors, such as a misspelled key or a policy file that is not being read.
+* **Authentication Information**: registered authentication providers, sessions, accounts, and the extensions that have access to each account.
+
+> [!CAUTION]
+> The report can contain sensitive information such as account identifiers, session details, and the list of extensions with access to each account. Review the contents before you share the report.
+
+> [!TIP]
+> If the **Account Policy Gate** state is `policyNotResolved`, run the **Developer: Sync Account Policy** command to force a refresh of the account-side policy data, then regenerate the report.
+
 ## VS Code enterprise policy reference
 
 The following table lists all available enterprise policies in VS Code.
 
-| Policy Name | Setting ID | Description | Minimum Version |
-|------------|------------|-------------|----------------|
-| `McpGalleryServiceUrl` | `setting(chat.mcp.gallery.serviceUrl)` | Configure the MCP Gallery service URL to connect to | 1.101 |
-| `ExtensionGalleryServiceUrl` | `setting(extensions.gallery.serviceUrl)` | Configure the Marketplace service URL to connect to | 1.99 |
-| `AllowedExtensions` | `setting(extensions.allowed)` | Specify a list of extensions that are allowed to use. This helps maintain a secure and consistent development environment by restricting the use of unauthorized extensions. More information: https://aka.ms/vscode/enterprise/extensions/allowed | 1.96 |
-| `ChatToolsAutoApprove` | `setting(chat.tools.global.autoApprove)` | Global auto approve also known as "YOLO mode" disables manual approval completely for all tools in all workspaces, allowing the agent to act fully autonomously. This is extremely dangerous and is *never* recommended, even containerized environments like Codespaces and Dev Containers have user keys forwarded into the container that could be compromised. This feature disables critical security protections and makes it much easier for an attacker to compromise the machine. | 1.99 |
-| `ChatToolsEligibleForAutoApproval` | `setting(chat.tools.eligibleForAutoApproval)` | Controls which tools are eligible for automatic approval. Tools set to 'false' will always present a confirmation and will never offer the option to auto-approve. The default behavior (or setting a tool to 'true') may result in the tool offering auto-approval options. | 1.107 |
-| `ChatMCP` | `setting(chat.mcp.access)` | Controls access to installed Model Context Protocol servers. | 1.99 |
-| `ChatAgentExtensionTools` | `setting(chat.extensionTools.enabled)` | Enable using tools contributed by third-party extensions. | 1.99 |
-| `ChatAgentMode` | `setting(chat.agent.enabled)` | When enabled, agent mode can be activated from chat and tools in agentic contexts with side effects can be used. | 1.99 |
-| `ChatHooks` | `setting(chat.useHooks)` | Controls whether hooks can be used in agent sessions. When disabled, hook configurations are ignored and no hook commands are executed. | 1.109 |
-| `ChatToolsTerminalEnableAutoApprove` | `setting(chat.tools.terminal.enableAutoApprove)` | Controls whether to allow auto approval in the run in terminal tool. | 1.104 |
-| `UpdateMode` | `setting(update.mode)` | Configure whether you receive automatic updates. Requires a restart after change. The updates are fetched from a Microsoft online service. | 1.67 |
-| `TelemetryLevel` | `setting(telemetry.telemetryLevel)` | Controls the level of telemetry. | 1.99 |
-| `EnableFeedback` | `setting(telemetry.feedback.enabled)` | Enable feedback mechanisms such as the issue reporter, surveys, and other feedback options. | 1.99 |
+| Policy<br>Setting ID | Description |
+|:--|:--|
+| `ChatAgentAllowedNetworkDomains`<br>`setting(chat.agent.allowedNetworkDomains)` | <span data-min-version="1.116">Allowed domains for network access by agent tools (fetch tool, integrated browser). Applies when `#chat.agent.networkFilter#` or `#chat.agent.sandbox.enabled#` is enabled. When `#chat.agent.sandbox.allowNetwork#` is enabled, all domains are allowed. Supports wildcards like `*.example.com`. When both allowed and denied lists are empty, all domains are blocked. Denied domains (see `#chat.agent.deniedNetworkDomains#`) take precedence.</span> |
+| `ChatAgentDeniedNetworkDomains`<br>`setting(chat.agent.deniedNetworkDomains)` | <span data-min-version="1.116">Denied domains for network access by agent tools (fetch tool, integrated browser). Applies when `#chat.agent.networkFilter#` or `#chat.agent.sandbox.enabled#` is enabled. This does not apply when `#chat.agent.sandbox.allowNetwork#` is enabled. Takes precedence over `#chat.agent.allowedNetworkDomains#`. Supports wildcards like `*.example.com`.</span> |
+| `ChatAgentMode`<br>`setting(chat.agent.enabled)` | <span data-min-version="1.99">When enabled, agent mode can be activated from chat and tools in agentic contexts with side effects can be used.</span> |
+| `ChatAgentNetworkFilter`<br>`setting(chat.agent.networkFilter)` | <span data-min-version="1.116">When enabled, network access by agent tools (fetch tool, integrated browser) is restricted according to `#chat.agent.allowedNetworkDomains#` and `#chat.agent.deniedNetworkDomains#`. Domain filtering is also applied to those tools when `#chat.agent.sandbox.enabled#` is enabled.</span> |
+| `ChatAgentSandboxAllowAutoApprove`<br>`setting(chat.agent.sandbox.allowAutoApprove)` | <span data-min-version="1.116">Controls whether agent mode terminal commands that run inside the sandbox are auto-approved. When disabled, the run in terminal tool uses the existing approval flow. This applies only when `#chat.agent.sandbox.enabled#` is enabled.</span> |
+| `ChatAgentSandboxAllowNetwork`<br>`setting(chat.agent.sandbox.allowNetwork)` | <span data-min-version="1.127">When `#chat.agent.sandbox.enabled#` is enabled, controls whether to allow all network domains in the sandbox. When enabled, the sandbox preserves file system restrictions while relaxing all network restrictions.</span> |
+| `ChatAgentSandboxAllowUnsandboxedCommands`<br>`setting(chat.agent.sandbox.allowUnsandboxedCommands)` | <span data-min-version="1.116">Controls whether agent mode terminal commands can run outside the sandbox after user confirmation when a sandboxed command fails or when sandbox restrictions would block the command. This applies only when `#chat.agent.sandbox.enabled#` is enabled.</span> |
+| `ChatAgentSandboxEnabled`<br>`setting(chat.agent.sandbox.enabled)` | <span data-min-version="1.116">Controls whether agent mode uses sandboxing to restrict what tools can do. When enabled, tools like the terminal are run in a sandboxed environment to limit access to the system. Use `#chat.agent.sandbox.allowNetwork#` to allow all network domains.</span> |
+| `Claude3PIntegration`<br>`setting(chat.agentHost.claudeAgent.enabled)`<br>`setting(github.copilot.chat.claudeAgent.enabled)` | <span data-min-version="1.113">Enable Claude Agent sessions in VS Code. Start and resume agentic coding sessions powered by Anthropic Claude Agent SDK directly in the editor. Uses your existing Copilot subscription.</span> |
+| `Codex3PIntegration`<br>`setting(chat.agentHost.codexAgent.enabled)` | <span data-min-version="1.126">Enable Codex Agent sessions in VS Code. Start and resume agentic coding sessions powered by OpenAI Codex. Usage can be routed through GitHub Copilot or authenticated directly with an OpenAI account.</span> |
+| `CopilotOtelCaptureContent`<br>`setting(chat.agentHost.otel.captureContent)`<br>`setting(github.copilot.chat.otel.captureContent)` | <span data-min-version="1.127">Controls whether Copilot OpenTelemetry export captures prompt, response, and tool content.</span> |
+| `CopilotOtelEnabled`<br>`setting(chat.agentHost.otel.enabled)`<br>`setting(github.copilot.chat.otel.enabled)` | <span data-min-version="1.127">Controls whether Copilot OpenTelemetry export is enabled. When managed, users cannot override the enterprise value.</span> |
+| `CopilotOtelProtocol`<br>`setting(chat.agentHost.otel.exporterType)`<br>`setting(github.copilot.chat.otel.exporterType)` | <span data-min-version="1.127">Controls the enterprise-managed OTLP protocol for Copilot OpenTelemetry export.</span> |
+| `CopilotOtelHeaders`<br>`setting(github.copilot.chat.otel.headers)` | <span data-min-version="1.127">Controls the enterprise-managed OTLP exporter headers for Copilot OpenTelemetry export.</span> |
+| `CopilotOtelEndpoint`<br>`setting(chat.agentHost.otel.otlpEndpoint)`<br>`setting(github.copilot.chat.otel.otlpEndpoint)` | <span data-min-version="1.127">Controls the enterprise-managed OTLP collector endpoint for Copilot OpenTelemetry export.</span> |
+| `CopilotOtelOtlpProtocol`<br>`setting(github.copilot.chat.otel.protocol)` | <span data-min-version="1.127">Controls the enterprise-managed OTLP wire protocol (protobuf vs JSON) for Copilot OpenTelemetry export.</span> |
+| `CopilotOtelOutfile`<br>`setting(chat.agentHost.otel.outfile)`<br>`setting(github.copilot.chat.otel.outfile)` | <span data-min-version="1.127">Prevents local file export when enterprise-managed Copilot OpenTelemetry export is configured.</span> |
+| `CopilotOtelResourceAttributes`<br>`setting(github.copilot.chat.otel.resourceAttributes)` | <span data-min-version="1.127">Controls the enterprise-managed OTel resource attributes for Copilot OpenTelemetry export.</span> |
+| `CopilotOtelServiceName`<br>`setting(github.copilot.chat.otel.serviceName)` | <span data-min-version="1.127">Controls the enterprise-managed OTel `service.name` resource attribute for Copilot OpenTelemetry export.</span> |
+| `ChatApprovedAccountOrganizations` | <span data-min-version="1.118">Setting this policy to a non-empty list activates the Approved Account gate: all AI features are disabled until the user signs into a GitHub account whose organizations intersect this list AND the account-side policy data has resolved. Comparison is case-insensitive. Use '*' as a wildcard to accept any signed-in GitHub or GHE account (use this for GHE deployments where the organization list is not surfaced).</span> |
+| `ChatStrictPluginOnlyCustomization` | <span data-min-version="1.132">Blocks standalone user and workspace skills, agents, hooks, instructions, and MCP servers while keeping eligible plugin customizations available.</span> |
+| `ChatDefaultModel`<br>`setting(chat.defaultModel)` | <span data-min-version="1.127">Sets the default chat model for new conversations. Accepts "auto", a model family name (such as "opus" or "gemini"), or a full model id. Users can still switch the model within a conversation.</span> |
+| `ChatEditorPreferCopilotHarness`<br>`setting(chat.editor.preferCopilotHarness)` | <span data-min-version="1.134">Configure whether VS Code uses the Agent Host Copilot SDK instead of the local harness for new editor chat sessions.</span> |
+| `ChatAgentExtensionTools`<br>`setting(chat.extensionTools.enabled)` | <span data-min-version="1.99">Enable using tools contributed by third-party extensions.</span> |
+| `ChatAllowManagedHooksOnly` | <span data-min-version="1.132">Allows hooks only from enterprise-managed sources and plugins force-enabled by policy.</span> |
+| `ChatMCP`<br>`setting(chat.mcp.access)` | <span data-min-version="1.99">Controls access to installed Model Context Protocol servers.</span> |
+| `ChatAllowedMcpServers` | <span data-min-version="1.130">Allowlist of Model Context Protocol servers. When set, only servers matching an entry may be installed or run; omit entirely to allow all servers (subject to the deny list).</span> |
+| `ChatAllowManagedMcpServersOnly` | <span data-min-version="1.132">Use only the enterprise-managed MCP allowlist when deciding which servers may run.</span> |
+| `ChatDeniedMcpServers` | <span data-min-version="1.130">Denylist of Model Context Protocol servers. Servers matching any entry are blocked from being installed or run, even if they also match the allow list; deny rules always take precedence.</span> |
+| `McpGalleryServiceUrl` | <span data-min-version="1.101">Configure the MCP Gallery service URL to connect to</span> |
+| `ChatPluginsEnabled`<br>`setting(chat.plugins.enabled)` | <span data-min-version="1.116">Enable agent plugin integration in chat.</span> |
+| `ChatEnabledPlugins`<br>`setting(chat.plugins.enabledPlugins)` | <span data-min-version="1.122">Plugin enablement. Keys are plugin IDs in `{plugin}@{marketplace}` form; values enable or disable the plugin.</span> |
+| `ChatExtraMarketplaces` | <span data-min-version="1.122">Additional plugin marketplaces to query. Keys are marketplace names; values are GitHub shorthand (`owner/repo[#ref]`) or Git URIs (`{url}[#ref]`), optionally with an enterprise-managed auto-update override.</span> |
+| `ChatStrictMarketplaces`<br>`setting(chat.plugins.strictMarketplaces)` | <span data-min-version="1.122">Allowlist of plugin marketplace sources. When set, only marketplaces matching an entry are trusted; an empty array blocks all marketplaces.</span> |
+| `CopilotSessionSync`<br>`setting(chat.sessionSync.enabled)` | <span data-min-version="1.121">Enable session sync to GitHub.com for cross-device Copilot session history. When disabled by organization policy, session data is kept local only.</span> |
+| `ChatToolsEligibleForAutoApproval`<br>`setting(chat.tools.eligibleForAutoApproval)` | <span data-min-version="1.107">Controls which tools are eligible for automatic approval. Tools set to 'false' will always present a confirmation and will never offer the option to auto-approve. The default behavior (or setting a tool to 'true') may result in the tool offering auto-approval options.</span> |
+| `ChatToolsAutoApprove`<br>`setting(chat.tools.global.autoApprove)` | <span data-min-version="1.99">Global auto approve also known as "YOLO mode" disables manual approval completely for all tools in all workspaces, allowing the agent to act fully autonomously. This is extremely dangerous and is *never* recommended, even containerized environments like Codespaces and Dev Containers have user keys forwarded into the container that could be compromised. This feature disables critical security protections and makes it much easier for an attacker to compromise the machine. Note: This setting only controls tool approval and does not prevent the agent from asking questions. To automatically answer agent questions, use the `#chat.autoReply#` setting.</span> |
+| `ChatToolsTerminalEnableAutoApprove`<br>`setting(chat.tools.terminal.enableAutoApprove)` | <span data-min-version="1.104">Controls whether to allow auto approval in the run in terminal tool.</span> |
+| `ChatHooks`<br>`setting(chat.useHooks)` | <span data-min-version="1.109">Controls whether chat hooks are executed at strategic points during an agent's workflow. Hooks are loaded from the files configured in `#chat.hookFilesLocations#`. This setting is only used by the Local agent harness.</span> |
+| `DictationEnabled`<br>`setting(dictation.enabled)` | <span data-min-version="1.131">Controls whether dictation is available across the product (chat input, editor, and terminal).</span> |
+| `DictationLLMCleanup`<br>`setting(dictation.experimental.llmCleanup)` | <span data-min-version="1.136">Controls whether final dictation transcripts are sent to a language model for cleanup.</span> |
+| `DictationModel`<br>`setting(dictation.model)` | <span data-min-version="1.136">Controls the transcription model used for dictation.</span> |
+| `AllowedExtensions`<br>`setting(extensions.allowed)` | <span data-min-version="1.96">Specify a list of extensions that are allowed to use. This helps maintain a secure and consistent development environment by restricting the use of unauthorized extensions. More information: https://aka.ms/vscode/enterprise/extensions/allowed</span> |
+| `ExtensionsAutoUpdate`<br>`setting(extensions.autoUpdate)` | <span data-min-version="1.125">Controls the automatic update behavior of extensions. The updates are fetched from a Microsoft online service.</span> |
+| `ExtensionsAutoUpdateDelay`<br>`setting(extensions.autoUpdateDelay)` | <span data-min-version="1.125">Controls the delay in hours after an extension update is published before it is automatically installed. Only applies when `#extensions.autoUpdate#` is set to `on`. This delay helps avoid installing potentially problematic updates immediately after release.</span> |
+| `ExtensionGalleryServiceUrl` | <span data-min-version="1.99">Configure the Marketplace service URL to connect to</span> |
+| `CopilotReviewAgent`<br>`setting(github.copilot.chat.reviewAgent.enabled)` | <span data-min-version="1.104">Enables the code review agent.</span> |
+| `CopilotReviewSelection`<br>`setting(github.copilot.chat.reviewSelection.enabled)` | <span data-min-version="1.104">Enables code review on current selection.</span> |
+| `CopilotNextEditSuggestions`<br>`setting(github.copilot.nextEditSuggestions.enabled)` | <span data-min-version="1.99">Whether to enable next edit suggestions (NES). NES can propose a next edit based on your recent changes.</span> |
+| `McpEnterpriseManagedAuthIdp` | <span data-min-version="1.122">The OAuth/OIDC IdP configuration used for enterprise-managed Model Context Protocol (MCP) server authentication.</span> |
+| `EnableFeedback`<br>`setting(telemetry.feedback.enabled)` | <span data-min-version="1.99">Enable feedback mechanisms such as the issue reporter, surveys, and other feedback options.</span> |
+| `TelemetryLevel`<br>`setting(telemetry.telemetryLevel)` | <span data-min-version="1.99">Controls the level of telemetry.</span> |
+| `UpdateMode`<br>`setting(update.mode)` | <span data-min-version="1.67">Configure whether you receive automatic updates. The updates are fetched from a Microsoft online service.</span> |
+| `BrowserChatTools`<br>`setting(workbench.browser.enableChatTools)` | <span data-min-version="1.110">When enabled, chat agents can use browser tools to open and interact with pages in the Integrated Browser.</span> |
 
 
 > [!NOTE]

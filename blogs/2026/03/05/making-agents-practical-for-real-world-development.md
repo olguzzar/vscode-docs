@@ -3,7 +3,7 @@ Order: 128
 TOCTitle: Agents for Real-World Dev
 PageTitle: "Making agents practical for real-world development"
 MetaDescription: "Explore agent orchestration, extensibility, and continuity in VS Code 1.110: lifecycle hooks, agent skills, session memory, and integrated browser tools."
-MetaSocialImage: release-graphic.png
+MetaSocialImage: release-graphic.webp
 Date: 2026-03-05
 Author: VS Code Team
 ---
@@ -52,7 +52,7 @@ Now you can manually run context compaction for a session by typing `/compact`. 
 
 Especially when working with long-running sessions and dealing with lots of context, controlling compaction keeps the agent focused on the key information.
 
-![Screenshot showing the context window control and the compact option.](context-compaction.png)
+![Screenshot showing the context window control and the compact option.](context-compaction.webp)
 
 ## Agent controls
 
@@ -74,7 +74,7 @@ For example, you might clarify:
 
 Fewer wasted edits, shorter feedback loops, and a conversation that stays on track.
 
-In our app, when new styling guidance is introduced to enhance the hero card with a gold accent and shimmer effect, the agent revisits the existing CSS and continues the implementation [without restarting the session](https://code.visualstudio.com/docs/copilot/chat/chat-sessions#_send-messages-while-a-request-is-running).
+In our app, when new styling guidance is introduced to enhance the hero card with a gold accent and shimmer effect, the agent revisits the existing CSS and continues the implementation [without restarting the session](https://code.visualstudio.com/docs/chat/chat-overview#_send-messages-while-a-request-is-running).
 
 ### Explore alternatives without losing context
 
@@ -84,7 +84,7 @@ To make this experience easier, you can now fork a chat session. This creates a 
 
 You can either type `/fork` and it will copy over the full conversation, or you can use the fork button at a specific checkpoint to _fork_ the conversation up until that point.
 
-In the demo below, [`/fork`](https://code.visualstudio.com/docs/copilot/chat/chat-sessions#_fork-a-chat-session) creates a parallel thread where a more minimal design direction is explored without affecting the original discussion.
+In the demo below, [`/fork`](https://code.visualstudio.com/docs/agents/run/sessions/manage-sessions#_fork-a-chat-session) creates a parallel thread where a more minimal design direction is explored without affecting the original discussion.
 
 <video src="fork-a-conversation.mp4" title="Video demonstrating forking a conversation into parallel threads in VS Code." autoplay muted controls></video>
 
@@ -92,7 +92,7 @@ In the demo below, [`/fork`](https://code.visualstudio.com/docs/copilot/chat/cha
 
 Teams frequently rely on conventions, validations, or automated checks to maintain consistency.
 
-[Hooks](https://code.visualstudio.com/docs/copilot/customization/hooks) execute deterministically at key lifecycle events, allowing teams to enforce policies and set guardrails that keep agent-driven changes aligned with project standards, rather than relying on repeated prompts.
+[Hooks](https://code.visualstudio.com/docs/agent-customization/hooks) execute deterministically at key lifecycle events, allowing teams to enforce policies and set guardrails that keep agent-driven changes aligned with project standards, rather than relying on repeated prompts.
 
 For example, a team might automatically lint code before edits are applied, block changes to protected configuration files, or trigger a test suite whenever an agent modifies application logic.
 
@@ -112,7 +112,7 @@ Many development tasks repeat across sessions.
 
 Writing tests, refactoring code, or reviewing changes often follows patterns you already understand.
 
-Instead of rewriting instructions each time, you can invoke agent skills directly from chat using slash commands. [Skills](https://code.visualstudio.com/docs/copilot/customization/agent-skills) may come from built-in capabilities, extensions, or project-specific tooling.
+Instead of rewriting instructions each time, you can invoke agent skills directly from chat using slash commands. [Skills](https://code.visualstudio.com/docs/agent-customization/agent-skills) may come from built-in capabilities, extensions, or project-specific tooling.
 
 Instead of prompting vaguely, you can intentionally invoke workflows.
 
@@ -158,7 +158,7 @@ In practice:
 - VS Code surfaces them as diffs
 - You review and approve modifications directly in the editor
 
-![Screenshot of the Copilot CLI screen with VS Code auto‑connect settings and a selected workspace.](copilot-cli.png)
+![Screenshot of the Copilot CLI screen with VS Code auto‑connect settings and a selected workspace.](copilot-cli.webp)
 
 ## The next step for agents in VS Code
 

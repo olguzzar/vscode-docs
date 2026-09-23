@@ -2,39 +2,39 @@
   "getStarted": {
     "title": "Get started with AI agents",
     "description": "Hand off tasks to autonomous AI agents that iterate until the job is done. Run them locally, in the background, or in the cloud, with your choice of AI provider. Track all sessions without leaving VS Code.",
-    "link": "/docs/copilot/agents/agents-tutorial",
-    "image": "/assets/docs/copilot/getting-started/agent-mode-selection-2.png"
+    "link": "/docs/agents/agents-tutorial",
+    "image": "/assets/docs/agents/getting-started/agent-mode-selection-2.png"
   },
   "featured": [
     {
       "icon": "codicon-lightbulb",
-      "title": "Learn about the agent loop",
-      "description": "Understand the core concepts of how AI agents plan, act, and iterate to complete tasks.",
-      "link": "/docs/copilot/concepts/agents"
+      "title": "Optimize your AI usage",
+      "description": "Tips to help you get the most out of AI agents, while optimizing for cost and performance.",
+      "link": "/docs/agents/guides/optimize-usage"
     },
     {
       "icon": "codicon-debug",
       "title": "Test and debug with browser agents",
       "description": "Let AI agents use the integrated browser to validate and fix issues in your application.",
-      "link": "/docs/copilot/guides/browser-agent-testing-guide"
+      "link": "/docs/agents/guides/browser-agent-testing-guide"
     },
     {
       "icon": "codicon-settings-gear",
       "title": "Customize AI for your project",
-      "description": "Configure custom instructions, prompt files, and MCP servers to tailor AI to your workflow.",
-      "link": "/docs/copilot/guides/customize-copilot-guide"
+      "description": "Configure custom instructions, skills, and MCP servers to tailor AI to your workflow.",
+      "link": "/docs/agent-customization/overview"
     },
     {
       "icon": "codicon-tools",
       "title": "Set up VS Code",
       "description": "Install VS Code on Windows, macOS, or Linux and get running.",
-      "link": "/docs/setup/setup-overview"
+      "link": "/docs/getstarted/overview"
     },
     {
       "icon": "codicon-mortar-board",
       "title": "Learn VS Code basics",
       "description": "Explore the editor, settings, extensions, and key features.",
-      "link": "/docs/getstarted/getting-started"
+      "link": "/docs/editing/getting-started/editor-tutorial"
     },
     {
       "icon": "codicon-organization",
@@ -46,23 +46,24 @@
   "latest": [
     {
       "type": "release",
-      "title": "VS Code 1.116 release",
-      "description": "Full terminal access for agents. Interact with any terminal session, with improved input handling and background notifications.",
-      "link": "/updates/v1_116",
-      "image": "/assets/updates/1_116/release-highlights.webp"
+      "title": "VS Code 1.138 release",
+      "description": "Run agent sessions in Dev Containers, continue Codex sessions across apps and subscriptions, and automatically clean up sessions after pull requests merge.",
+      "link": "/updates/v1_138",
+      "image": "/assets/updates/1_138/release-highlights.webp"
     },
     {
       "type": "documentation",
-      "title": "Agent hooks",
-      "description": "Use hooks to automate workflows, enforce security policies, validate operations, and integrate with external tools.",
-      "link": "/docs/copilot/customization/hooks"
+      "title": "Agent harness concepts",
+      "description": "Understand the core concepts and how to use different types of harnesses within VS Code.",
+      "link": "/docs/agents/concepts/agent-harnesses",
+      "image": "/assets/docs/agents/agent-harnesses/agents-window-session-target.png"
     },
     {
       "type": "blog",
-      "title": "How VS Code builds with AI",
-      "description": "Learn how VS Code leverages AI to enhance development workflows and improve productivity.",
-      "link": "/blogs/2026/03/13/how-VS-Code-Builds-with-AI",
-      "image": "/assets/blogs/2026/03/13/vscode-build-with-ai-poster.png"
+      "title": "Introducing the Agent Host",
+      "description": "Learn how the VS Code Agent Host and Agent Host Protocol (AHP) enable persistent, portable agent sessions across windows, clients, and local or remote environments.",
+      "link": "/blogs/2026/08/26/agent-host-architecture",
+      "image": "/assets/blogs/2026/08/26/remote-agent-hosts.png"
     }
   ]
 }

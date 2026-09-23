@@ -120,4 +120,17 @@ echo "--- Step 3: Create Insiders release notes ---"
 node "$SCRIPT_DIR/create-release-notes.js" --insiders "$NEXT_RELEASE_NUMBER" "$NEXT_RELEASE_DATE" "$NEXT_MILESTONE" "$LAST_UPDATED"
 echo ""
 
+# Step 4: Generate social media image for Insiders release
+echo "--- Step 4: Generate social media image ---"
+if command -v magick &> /dev/null; then
+    bash "$SCRIPT_DIR/generate-social-image.sh" "1.$NEXT_RELEASE_NUMBER"
+elif command -v convert &> /dev/null; then
+    bash "$SCRIPT_DIR/generate-social-image-im6.sh" "1.$NEXT_RELEASE_NUMBER"
+else
+    echo "Skipping: ImageMagick not found ('magick' or 'convert')."
+    echo "  macOS:  brew install imagemagick"
+    echo "  Ubuntu: sudo apt install imagemagick"
+fi
+echo ""
+
 echo "=== Release preparation (Part 2) complete ==="

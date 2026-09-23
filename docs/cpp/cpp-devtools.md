@@ -11,7 +11,7 @@ Keywords:
 
 Refactoring and making updates in C++ code often requires tracking down edits across multiple files and having knowledge of your build configuration.
 
-GitHub Copilot Chat can use the C++ tools built into VS Code to provide context-aware assistance for your C++ projects. By using code understanding and CMake tools, Copilot can understand your codebase structure, dependencies, and build configurations to give you more accurate, helpful, and fast responses.
+GitHub Copilot Chat can use the C++ tools built into {% data variables.product.prodname_vscode_shortname %} to provide context-aware assistance for your C++ projects. By using code understanding and CMake tools, Copilot can understand your codebase structure, dependencies, and build configurations to give you more accurate, helpful, and fast responses.
 
 This guide covers the available tools and how to use them effectively with AI agents to accomplish tasks such as:
 
@@ -39,7 +39,7 @@ You can enable/disable any of these tools at any point by navigating to the `Too
 
 The C++ extension provides tools that use language services to give Copilot Chat deep understanding of your code structure, symbols, and relationships. Ensure you have [configured with IntelliSense](/docs/cpp/configure-intellisense.md) to take advantage of these tools.
 
-To enable these tools, select the **Enable Cpp Code Editing Tools** setting in your VS Code user settings.
+To enable these tools, select the **Enable Cpp Code Editing Tools** setting in your {% data variables.product.prodname_vscode_shortname %} user settings.
 
 ![Screenshot of the Settings editor, showing the Enable Cpp Code Editing Tools setting.](images/cpp-devtools/cpp-code-editing-tools-setting.png)
 
@@ -50,7 +50,7 @@ To enable these tools, select the **Enable Cpp Code Editing Tools** setting in y
 **Example Use Case:**
 *Optimize memory performance and ensure non-breaking changes*
 
-![Screenshot of the Chat view, showing a prompt to refactor a symbol to be memory-safe, which invokes the get symbol info tool.](images/cpp-devtools/get-symbol-info-example.png)
+![Screenshot of the {% data variables.copilot.chat_view %}, showing a prompt to refactor a symbol to be memory-safe, which invokes the get symbol info tool.](images/cpp-devtools/get-symbol-info-example.png)
 
 ---
 
@@ -61,10 +61,10 @@ To enable these tools, select the **Enable Cpp Code Editing Tools** setting in y
 **Example Use Case:**
 *Add additional functionality to existing functions*
 
-![Screenshot of the Chat view, showing a prompt to update an existing function and add a parameter for logging, which invokes the get symbol references tool.](images/cpp-devtools/get-symbol-references-example.png)
+![Screenshot of the {% data variables.copilot.chat_view %}, showing a prompt to update an existing function and add a parameter for logging, which invokes the get symbol references tool.](images/cpp-devtools/get-symbol-references-example.png)
 
 > [!NOTE]
-> You can control the maximum number of symbol references returned by the tool by adjusting the symbol references limit setting in VS Code.
+> You can control the maximum number of symbol references returned by the tool by adjusting the symbol references limit setting in {% data variables.product.prodname_vscode_shortname %}.
 >
 > ![Screenshot of the Settings editor, showing the symbol references limit setting.](images/cpp-devtools/get-symbol-references-setting.png)
 
@@ -77,7 +77,7 @@ To enable these tools, select the **Enable Cpp Code Editing Tools** setting in y
 **Example Use Case:**
 *Dependency analysis for module migration*
 
-![Screenshot of the Chat view, showing a prompt to migrate a module into a separate library and thus requesting a dependency analysis, which invokes the get symbol call hierarchy tool.](images/cpp-devtools/get-symbol-call-hierarchy-example.png)
+![Screenshot of the {% data variables.copilot.chat_view %}, showing a prompt to migrate a module into a separate library and thus requesting a dependency analysis, which invokes the get symbol call hierarchy tool.](images/cpp-devtools/get-symbol-call-hierarchy-example.png)
 
 ---
 
@@ -92,7 +92,7 @@ CMake tools allow Copilot Chat to understand your build configuration, targets, 
 **Example Use Case:**
 *Resolving build errors*
 
-![Screenshot of the Chat view, showing a prompt to resolve build errors, which invokes the CMake build tool.](images/cpp-devtools/cmake-build-example.png)
+![Screenshot of the {% data variables.copilot.chat_view %}, showing a prompt to resolve build errors, which invokes the CMake build tool.](images/cpp-devtools/cmake-build-example.png)
 
 ---
 
@@ -103,7 +103,7 @@ CMake tools allow Copilot Chat to understand your build configuration, targets, 
 **Example Use Case:**
 *Fix code according to unit tests*
 
-![Screenshot of the Chat view, showing a prompt to fix failing unit tests, which invokes run ctest.](images/cpp-devtools/run-ctest-example.png)
+![Screenshot of the {% data variables.copilot.chat_view %}, showing a prompt to fix failing unit tests, which invokes run ctest.](images/cpp-devtools/run-ctest-example.png)
 
 ---
 
@@ -112,7 +112,7 @@ CMake tools allow Copilot Chat to understand your build configuration, targets, 
 - **Be specific:** Identify the exact symbol, file, or component you're asking about (for example, "refactor the `getConfig()` function" rather than "make this faster")
 - **Reference context:** Ask Copilot Chat to consider specific files, functions, or modules when analyzing changes
 - **Directly reference tools**: Directly reference relevant tools using # in chat to ensure invocation.
-- **Use custom instructions:** Set up [custom instructions](/docs/copilot/customization/custom-instructions.md) to guide Copilot Chat. See example custom instructions for improving call rates of C++ tools documented [in the awesome-copilot repo](https://github.com/github/awesome-copilot/blob/main/instructions/cpp-language-service-tools.instructions.md?plain=1).
+- **Use custom instructions:** Set up [custom instructions](/docs/agent-customization/custom-instructions.md) to guide Copilot Chat. See example custom instructions for improving call rates of C++ tools documented [in the awesome-copilot repo](https://github.com/github/awesome-copilot/blob/main/instructions/cpp-language-service-tools.instructions.md?plain=1).
 - **Leverage latest models:** Use the latest AI models that support tool-calling for the most accurate code understanding and tool usage
 - **Optimize tool performance:** Only enable relevant tools to your development workflow to avoid context bloat
 

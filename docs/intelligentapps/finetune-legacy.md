@@ -9,26 +9,29 @@ Fine-tune AI model is a common practice that allows you to use your custom datas
 
 A fine-tuned model can be downloaded to local and do inference test with GPUs, or be quantized to run locally on CPUs. Fine-tuned model can also be deployed to a cloud environment as remote model.
 
-## Fine-tune AI models on Azure with Foundry Toolkit for VS Code (Preview)
+## Fine-tune AI models on Azure with Foundry Toolkit for {% data variables.product.prodname_vscode_shortname %} (Preview)
 
-Foundry Toolkit for VS Code now supports provisioning an Azure Container App to run model fine-tuning and host an inference endpoint in the cloud.
+Foundry Toolkit for {% data variables.product.prodname_vscode_shortname %} now supports provisioning an Azure Container App to run model fine-tuning and host an inference endpoint in the cloud.
 
 ### Set up your cloud environment
 
-1. To run the model fine-tuning and inference in your remote Azure Container Apps Environment, make sure your subscription has enough GPU capacity. Submit a [support ticket](https://azure.microsoft.com/support/create-ticket/) to request the required capacity for your application. [Get More Info about GPU capacity](https://learn.microsoft.com/en-us/azure/container-apps/workload-profiles-overview)
+1. To run the model fine-tuning and inference in your remote Azure Container Apps environment, make sure your subscription has enough GPU capacity. Fine-tuning runs on the NC24-A100 GPU workload profile in Azure Container Apps. Submit a [support ticket](https://azure.microsoft.com/support/create-ticket/) to request quota for the `SubscriptionNCA100Gpus` SKU in your target region. For more information, see [Azure Container Apps workload profiles](https://learn.microsoft.com/en-us/azure/container-apps/workload-profiles-overview).
+
+    > [!IMPORTANT]
+    > Some models need more than one GPU for a single fine-tuning job. If your quota is too low, provisioning fails with a `MaxRegionalQuotaExceeded` error. Request enough quota for the `SubscriptionNCA100Gpus` SKU to cover the number of GPUs that your model requires.
 
 1. Make sure you have a [HuggingFace account](https://huggingface.co/) and [generate an access token](https://huggingface.co/docs/hub/security-tokens) if you are using private dataset on HuggingFace or your base model needs access control.
 
 1. Accept the LICENSE on HuggingFace if you are fine-tuning Mistral or Llama.
 
-1. Enable Remote Fine-tuning and Inference feature flag in the Foundry Toolkit for VS Code
-    1. Open the VS Code Settings by selecting *File -> Preferences -> Settings*.
+1. Enable Remote Fine-tuning and Inference feature flag in the Foundry Toolkit for {% data variables.product.prodname_vscode_shortname %}
+    1. Open the {% data variables.product.prodname_vscode_shortname %} Settings by selecting *File -> Preferences -> Settings*.
     1. Navigate to *Extensions* and select *Foundry Toolkit*.
     1. Select the *"Enable to run fine-tuning and inference on Azure Container Apps"* option.
 
       ![Foundry Toolkit Settings](./images/finetune/settings.png)
 
-    1. Reload VS Code for the changes to take effect.
+    1. Reload {% data variables.product.prodname_vscode_shortname %} for the changes to take effect.
 
 ### Scaffold a fine-tune project
 
@@ -44,7 +47,7 @@ Foundry Toolkit for VS Code now supports provisioning an Azure Container App to 
       ![Panel: Generate Project](./images/finetune/panel-generate-project.png)
 
 > [!NOTE]
-> The project currently works either locally or remotely within the Foundry Toolkit for VS Code. If you choose *"Fine-tune locally"* during project creation, it will run exclusively in WSL without cloud resources. Otherwise, the project will be restricted to run in the remote Azure Container App environment.
+> The project currently works either locally or remotely within the Foundry Toolkit for {% data variables.product.prodname_vscode_shortname %}. If you choose *"Fine-tune locally"* during project creation, it will run exclusively in WSL without cloud resources. Otherwise, the project will be restricted to run in the remote Azure Container App environment.
 
 ### Provision Azure Resources
 
@@ -106,7 +109,7 @@ To view and query your logs, select the "*Console*" button and navigate to the L
 
 #### View streaming logs in VSCode
 
-After initiating the fine-tuning job, you can also view logs on Azure by selecting the "*Show Streaming Logs in VS Code*" button in the VSCode notification.
+After initiating the fine-tuning job, you can also view logs on Azure by selecting the "*Show Streaming Logs in {% data variables.product.prodname_vscode_shortname %}*" button in the VSCode notification.
 
 Or you can run the command `Foundry Toolkit: Show the running fine-tuning job streaming logs` in the Command Palette.
 
@@ -175,7 +178,7 @@ Azure Container App Secrets provide a secure way to store and manage sensitive d
 
     ![Input secret](./images/finetune/input-secret.png)
 
-    For example, if you're using private HuggingFace dataset or models that need Hugging Face access control, set your HuggingFace token as an environment variable [`HF_TOKEN`](https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hftoken) to avoid the need for manual login on the Hugging Face Hub.
+    For example, if you're using a private Hugging Face dataset or models that need Hugging Face access control, add a secret so the fine-tuning job can authenticate without a manual login. Enter `HF_TOKEN` as the secret name and your Hugging Face token as the value. The toolkit uses the secret name you enter as the environment variable name, so enter it exactly as [`HF_TOKEN`](https://huggingface.co/docs/huggingface_hub/package_reference/environment_variables#hftoken), the variable that Hugging Face tools read. Azure Container Apps stores the underlying secret resource in lowercase as `hf-token`, but the environment variable passed to the job is still `HF_TOKEN`.
 
 After you've set up the secret, you can now use it in your Azure Container App. The secret will be set in the environment variables of your container app.
 
@@ -307,8 +310,8 @@ For example:
 
 In this article, you learned how to:
 
-- Set up the Foundry Toolkit for VS Code to support fine-tuning and inference in Azure Container Apps.
-- Create a fine-tuning project in Foundry Toolkit for VS Code.
+- Set up the Foundry Toolkit for {% data variables.product.prodname_vscode_shortname %} to support fine-tuning and inference in Azure Container Apps.
+- Create a fine-tuning project in Foundry Toolkit for {% data variables.product.prodname_vscode_shortname %}.
 - Configure the fine-tuning workflow, including dataset selection and training parameters.
 - Run the fine-tuning workflow to adapt a pre-trained model to your specific dataset.
 - View the results of the fine-tuning process, including metrics and logs.
@@ -317,4 +320,4 @@ In this article, you learned how to:
 - Re-evaluate a model using different datasets or training parameters.
 - Handle failed jobs and adjust configurations for re-runs.
 - Understand the supported models and their requirements for fine-tuning.
-- Use the Foundry Toolkit for VS Code to manage fine-tuning projects, including provisioning Azure resources, running fine-tuning jobs, and deploying models for inference.
+- Use the Foundry Toolkit for {% data variables.product.prodname_vscode_shortname %} to manage fine-tuning projects, including provisioning Azure resources, running fine-tuning jobs, and deploying models for inference.
